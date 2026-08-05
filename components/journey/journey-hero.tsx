@@ -28,7 +28,7 @@ export function JourneyHero() {
 
       <motion.p
         {...fadeUp(0, 10)}
-        className="text-xs font-semibold tracking-[0.3em] text-primary"
+        className="text-xs font-semibold tracking-[0.2em] text-primary"
       >
         OUR JOURNEY
       </motion.p>

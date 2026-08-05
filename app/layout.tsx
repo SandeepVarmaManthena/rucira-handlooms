@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Poppins, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
-import { ChatWidget } from "@/components/chat-widget";
+import { MotionProvider } from "@/components/motion-provider";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -41,10 +39,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <ChatWidget />
+          <MotionProvider>{children}</MotionProvider>
         </ThemeProvider>
       </body>
     </html>

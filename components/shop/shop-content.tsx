@@ -25,6 +25,7 @@ import {
   CATEGORY_FILTERS,
   COLOR_FILTERS,
   PATTERN_FILTERS,
+  PRICE_RANGES,
   SORT_OPTIONS,
   TYPE_FILTERS,
   filterAndSortProducts,
@@ -37,6 +38,7 @@ const VALID_CATEGORIES = CATEGORY_FILTERS.map((c) => c.value);
 const VALID_FABRICS = TYPE_FILTERS.map((t) => t.value);
 const VALID_COLORS = COLOR_FILTERS.map((c) => c.value);
 const VALID_PATTERNS = PATTERN_FILTERS.map((p) => p.value);
+const VALID_PRICE_RANGES = PRICE_RANGES.map((p) => p.value);
 
 function toggleValue<T>(list: T[], value: T): T[] {
   return list.includes(value)
@@ -59,7 +61,12 @@ export function ShopContent() {
   const [selectedPatterns, setSelectedPatterns] = React.useState<
     ProductPattern[]
   >(() => parseListParam(searchParams.get("pattern"), VALID_PATTERNS));
-  const [priceRange, setPriceRange] = React.useState<PriceRangeValue>("all");
+  const [priceRange, setPriceRange] = React.useState<PriceRangeValue>(() => {
+    const value = searchParams.get("price");
+    return VALID_PRICE_RANGES.includes(value as PriceRangeValue)
+      ? (value as PriceRangeValue)
+      : "all";
+  });
   const [sort, setSort] = React.useState<SortValue>("recommended");
 
   const results = React.useMemo(

@@ -25,7 +25,7 @@ export function ProductCard({
         <div
           className={`absolute inset-0 bg-gradient-to-br ${product.gradient} transition-transform duration-500 group-hover:scale-105`}
         />
-        <div className="absolute inset-0 opacity-20 [background-image:repeating-linear-gradient(70deg,#fff_0,#fff_1px,transparent_1px,transparent_13px)]" />
+        <div className="absolute inset-0 opacity-20 [background-image:repeating-linear-gradient(70deg,#fff_0,#fff_1px,transparent_1px,transparent_13px)] transition-transform duration-700 ease-out group-hover:scale-150" />
 
         {product.tag && (
           <span className="absolute left-3 top-3 rounded-full bg-background/90 px-2.5 py-1 text-[0.65rem] font-semibold tracking-wide text-foreground backdrop-blur-sm">

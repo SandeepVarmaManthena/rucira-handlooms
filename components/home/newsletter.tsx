@@ -41,11 +41,11 @@ export function Newsletter() {
         </span>
 
         <h2 className="relative mt-5 text-balance font-heading text-2xl font-semibold sm:text-3xl">
-          Join the Rucira family
+          Get 10% off your first saree
         </h2>
         <p className="relative mx-auto mt-3 max-w-md text-balance text-sm text-white/80 sm:text-base">
-          Be the first to know about new weaves, festive sales, and the
-          stories behind every saree.
+          Join the Rucira family for early access to new weaves, festive
+          sales, and the stories behind every saree.
         </p>
 
         <form

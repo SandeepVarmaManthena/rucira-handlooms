@@ -25,6 +25,36 @@ export const categories: Category[] = [
     gradient: "from-[oklch(0.6_0.06_120)] to-[oklch(0.78_0.09_110)]",
   },
   {
+    name: "Tussar Silk",
+    description: "Wild silk with a natural sheen",
+    href: "/shop?category=tussar",
+    gradient: "from-[oklch(0.55_0.1_75)] to-[oklch(0.78_0.14_85)]",
+  },
+  {
+    name: "Paithani",
+    description: "Kaleidoscope borders from Maharashtra",
+    href: "/shop?category=paithani",
+    gradient: "from-[oklch(0.4_0.13_35)] to-[oklch(0.6_0.14_50)]",
+  },
+  {
+    name: "Mangalagiri Cotton",
+    description: "Crisp handloom cotton, everyday ease",
+    href: "/shop?category=mangalagiri",
+    gradient: "from-[oklch(0.65_0.07_50)] to-[oklch(0.82_0.08_75)]",
+  },
+  {
+    name: "Chettinad Cotton",
+    description: "Bold checks from Tamil Nadu",
+    href: "/shop?category=chettinad",
+    gradient: "from-[oklch(0.5_0.1_25)] to-[oklch(0.7_0.11_45)]",
+  },
+  {
+    name: "Kota Doria",
+    description: "Featherlight weave for warm days",
+    href: "/shop?category=kota",
+    gradient: "from-[oklch(0.55_0.06_140)] to-[oklch(0.74_0.08_120)]",
+  },
+  {
     name: "Wedding Edit",
     description: "Heirlooms in the making",
     href: "/shop?category=kanjivaram,banarasi,paithani",
@@ -380,6 +410,20 @@ export type WeaverProfile = {
   gradient: string;
 };
 
+export type FeaturedWeaver = WeaverProfile & { story: string };
+
+export const featuredWeaver: FeaturedWeaver = {
+  name: "Kavita Jadhav",
+  village: "Yeola, Maharashtra",
+  craft: "Paithani Silk",
+  experience: "27 years of weaving",
+  quote:
+    "A Paithani takes six weeks and four hands. When a bride wears mine on her wedding day, our whole family feels like we're standing beside her.",
+  story:
+    "Kavita learned the paithani's signature kaleidoscope border from her mother-in-law at seventeen. Today she trains three apprentices in her home workshop — women from her village who once had no way to earn from the craft they grew up watching.",
+  gradient: "from-[oklch(0.4_0.13_35)] to-[oklch(0.6_0.14_50)]",
+};
+
 export const weaverProfiles: WeaverProfile[] = [
   {
     name: "Lakshmi Amma",
@@ -424,4 +468,65 @@ export const weavingRegions: WeavingRegion[] = [
   { state: "Madhya Pradesh", craft: "Chanderi & Maheshwari" },
   { state: "Odisha", craft: "Sambalpuri Ikat" },
   { state: "Assam", craft: "Muga Silk" },
+];
+
+export type Certification = {
+  title: string;
+  description: string;
+};
+
+export const certifications: Certification[] = [
+  {
+    title: "GI-Tagged Weaves",
+    description:
+      "We source Kanjivaram and Banarasi sarees only from Geographical Indication–tagged weaving clusters.",
+  },
+  {
+    title: "Silk Mark Yarn",
+    description:
+      "Every silk saree is woven from Silk Mark–certified yarn, verifying it's genuine natural silk.",
+  },
+  {
+    title: "Handloom, Not Power Loom",
+    description:
+      "Each saree is inspected for the subtle irregularities that only a hand-operated pit loom leaves behind.",
+  },
+  {
+    title: "Fair-Trade Pricing",
+    description:
+      "Weavers are paid a fixed fair price before we list a single saree — regardless of how it sells.",
+  },
+];
+
+export type FaqItem = {
+  question: string;
+  answer: string;
+};
+
+export const faqItems: FaqItem[] = [
+  {
+    question: "How do I know a saree is genuinely handwoven?",
+    answer:
+      "Every product page names the weaver and village it came from. We visit each cluster ourselves, and only list sarees woven on a hand-operated pit loom — never power loom.",
+  },
+  {
+    question: "How long does delivery take?",
+    answer:
+      "Most orders reach you within 5–7 business days across India. Made-to-order bridal pieces can take 2–3 weeks — we'll always tell you upfront on the product page.",
+  },
+  {
+    question: "Can I return or exchange a saree?",
+    answer:
+      "Yes — unworn sarees with tags intact can be returned within 7 days of delivery for a full refund or exchange. Made-to-order bridal pieces are final sale.",
+  },
+  {
+    question: "How should I care for a handloom saree?",
+    answer:
+      "Most silks should be dry-cleaned; handspun cottons can be hand-washed in cold water. Every order ships with a care card specific to that saree's weave.",
+  },
+  {
+    question: "Do you ship internationally?",
+    answer:
+      "Currently we ship across India only. We're working on international shipping — join our newsletter and we'll let you know the moment it's live.",
+  },
 ];

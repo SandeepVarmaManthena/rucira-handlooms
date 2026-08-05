@@ -69,7 +69,7 @@ function TimelineStep({ step, index }: { step: JourneyStep; index: number }) {
             : "sm:col-start-2 sm:row-start-1 sm:pl-12",
         )}
       >
-        <span className="text-xs font-semibold tracking-widest text-primary">
+        <span className="text-xs font-semibold tracking-[0.2em] text-primary">
           {step.step} &middot; {step.duration}
         </span>
         <h3 className="mt-1.5 font-heading text-xl font-semibold sm:text-2xl">

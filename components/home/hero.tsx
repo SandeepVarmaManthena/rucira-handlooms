@@ -12,7 +12,7 @@ export function Hero() {
     <section className="relative overflow-hidden bg-gradient-to-b from-secondary/40 to-background">
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-2 lg:gap-10 lg:px-8 lg:py-28">
         <motion.div {...fadeUp(0)} className="order-2 lg:order-1">
-          <p className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
             Direct from the weaver
           </p>
 

@@ -1,4 +1,6 @@
 import { Hero } from "@/components/home/hero";
+import { TrustBadges } from "@/components/home/trust-badges";
+import { SaleBanner } from "@/components/home/sale-banner";
 import { CategoryGrid } from "@/components/home/category-grid";
 import { WeaverStory } from "@/components/home/weaver-story";
 import { FeaturedProducts } from "@/components/home/featured-products";
@@ -11,6 +13,8 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <TrustBadges />
+      <SaleBanner />
       <CategoryGrid />
       <WeaverStory />
       <FeaturedProducts />

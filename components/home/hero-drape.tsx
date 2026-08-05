@@ -21,7 +21,7 @@ export function HeroDrape() {
         <motion.div
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-          className="relative size-full overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary via-[oklch(0.42_0.14_25)] to-[oklch(0.55_0.13_35)] shadow-2xl shadow-primary/25"
+          className="relative size-full overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-[oklch(0.42_0.14_25)] to-[oklch(0.55_0.13_35)] shadow-2xl shadow-primary/25"
         >
           <div className="absolute inset-0 opacity-[0.16] [background-image:repeating-linear-gradient(115deg,var(--gold)_0,var(--gold)_1px,transparent_1px,transparent_15px)]" />
           <div className="absolute inset-0 opacity-[0.08] [background-image:repeating-linear-gradient(25deg,white_0,white_1px,transparent_1px,transparent_15px)]" />
