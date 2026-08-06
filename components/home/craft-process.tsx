@@ -16,7 +16,7 @@ export function CraftProcess() {
         </h2>
         <p className="mt-3 text-balance text-muted-foreground">
           Every Rucira saree passes through the hands of skilled artisans over
-          several days — no machines, no shortcuts.
+          several days. No machines, no shortcuts.
         </p>
       </div>
 

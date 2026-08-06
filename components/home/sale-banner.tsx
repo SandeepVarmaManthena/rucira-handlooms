@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Flame } from "lucide-react";
@@ -39,9 +40,16 @@ export function SaleBanner() {
     <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
       <motion.div
         {...scaleIn()}
-        className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-maroon via-[oklch(0.4_0.14_22)] to-[oklch(0.55_0.13_35)] px-6 py-10 text-white sm:px-10 sm:py-12"
+        className="relative overflow-hidden rounded-3xl px-6 py-10 text-white sm:px-10 sm:py-12"
       >
-        <div className="pointer-events-none absolute inset-0 opacity-[0.14] [background-image:repeating-linear-gradient(115deg,var(--gold)_0,var(--gold)_1px,transparent_1px,transparent_15px)]" />
+        <Image
+          src="/images/hero/sale-banner.png"
+          alt=""
+          fill
+          sizes="(min-width: 1280px) 1280px, 100vw"
+          className="object-cover"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-maroon/85 via-[oklch(0.4_0.14_22)]/78 to-[oklch(0.55_0.13_35)]/72" />
 
         <div className="relative flex flex-col items-center gap-8 text-center lg:flex-row lg:justify-between lg:text-left">
           <div>
@@ -53,7 +61,7 @@ export function SaleBanner() {
               Up to 40% off handloom silks
             </h2>
             <p className="mt-2 max-w-sm text-balance text-sm text-white/75 sm:text-base">
-              On select Kanjivaram, Banarasi &amp; Tussar weaves — while
+              On select Kanjivaram, Banarasi &amp; Tussar weaves, while
               stocks from this season&rsquo;s looms last.
             </p>
           </div>

@@ -64,8 +64,8 @@ export const PATTERN_FILTERS: { value: ProductPattern; label: string }[] = [
 export const PRICE_RANGES: { value: PriceRangeValue; label: string }[] = [
   { value: "all", label: "Any price" },
   { value: "under-5000", label: "Under ₹5,000" },
-  { value: "5000-10000", label: "₹5,000 – ₹10,000" },
-  { value: "10000-20000", label: "₹10,000 – ₹20,000" },
+  { value: "5000-10000", label: "₹5,000 to ₹10,000" },
+  { value: "10000-20000", label: "₹10,000 to ₹20,000" },
   { value: "above-20000", label: "Above ₹20,000" },
 ];
 

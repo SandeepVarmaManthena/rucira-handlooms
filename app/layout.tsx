@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rucira Sarees — Handloom, Handcrafted with Heart",
+  title: "Rucira Sarees | Handloom, Handcrafted with Heart",
   description:
     "Authentic handloom sarees sourced directly from master weavers across India. Discover the journey behind every thread.",
 };

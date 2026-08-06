@@ -60,12 +60,12 @@ export function WeaverStory() {
             OUR JOURNEY
           </p>
           <h2 className="mt-2 text-balance font-heading text-2xl font-semibold sm:text-3xl lg:text-4xl">
-            Sold direct from the loom — never from a warehouse
+            Sold direct from the loom, never from a warehouse
           </h2>
           <p className="mt-4 max-w-lg text-balance leading-relaxed text-muted-foreground">
             We work hand-in-hand with over 500 weaver families across
             India, paying fair prices and skipping the middlemen
-            entirely — every saree carries a name, a village, and a story.
+            entirely. Every saree carries a name, a village, and a story.
           </p>
 
           <div className="mt-6 flex w-fit items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3.5">

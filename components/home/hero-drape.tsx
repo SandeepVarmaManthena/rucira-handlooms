@@ -1,13 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { EASE } from "@/lib/motion";
 
 /**
- * A hand-authored illustration standing in for product photography: a draped
- * panel of fabric with a woven crosshatch texture, a temple-border trim, and
- * a single gold thread that draws itself in — evokes the loom without
- * relying on stock icon-in-a-circle decoration.
+ * The hero's right-side visual: a weaver's hands arranging the gold zari
+ * border of a handwoven silk saree, with a temple-border trim underlining
+ * it to tie into the site's recurring handloom motif.
  */
 export function HeroDrape() {
   return (
@@ -21,28 +21,16 @@ export function HeroDrape() {
         <motion.div
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-          className="relative size-full overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-[oklch(0.42_0.14_25)] to-[oklch(0.55_0.13_35)] shadow-2xl shadow-primary/25"
+          className="relative size-full overflow-hidden rounded-3xl shadow-2xl shadow-primary/25"
         >
-          <div className="absolute inset-0 opacity-[0.16] [background-image:repeating-linear-gradient(115deg,var(--gold)_0,var(--gold)_1px,transparent_1px,transparent_15px)]" />
-          <div className="absolute inset-0 opacity-[0.08] [background-image:repeating-linear-gradient(25deg,white_0,white_1px,transparent_1px,transparent_15px)]" />
-
-          <svg
-            className="absolute inset-0 size-full"
-            viewBox="0 0 400 500"
-            fill="none"
-            preserveAspectRatio="none"
-          >
-            <motion.path
-              d="M 36 470 C 130 400, 90 230, 210 170 S 372 70, 350 24"
-              stroke="var(--gold)"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 0.75 }}
-              transition={{ duration: 1.8, ease: EASE, delay: 0.5 }}
-            />
-          </svg>
+          <Image
+            src="/images/hero/hero-section.png"
+            alt="A weaver's hands arranging the gold zari border of a handwoven silk saree"
+            fill
+            priority
+            sizes="(min-width: 640px) 24rem, 20rem"
+            className="object-cover"
+          />
 
           <div className="absolute inset-x-0 bottom-0 h-9 bg-black/15">
             <div

@@ -4,7 +4,7 @@ import * as React from "react";
 import { X } from "lucide-react";
 
 const MESSAGES = [
-  "Festive Sale is live — up to 40% off handloom silks",
+  "Festive Sale is live: up to 40% off handloom silks",
   "Free shipping across India on orders above ₹2,999",
   "Every saree is sourced directly from the weaver who made it",
 ];

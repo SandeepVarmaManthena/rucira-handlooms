@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Rucira Sarees",
   tagline: "Handloom, handcrafted with heart",
   description:
-    "Authentic handloom sarees, sourced directly from master weavers across India. No middlemen — every purchase supports the loom that made it.",
+    "Authentic handloom sarees, sourced directly from master weavers across India. No middlemen. Every purchase supports the loom that made it.",
 };
 
 export const mainNav = [

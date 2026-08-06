@@ -23,7 +23,7 @@ export function Hero() {
           </h1>
 
           <p className="mt-5 max-w-sm text-balance text-base text-muted-foreground sm:text-lg">
-            Woven by a real artisan family — no factory, no middleman.
+            Woven by a real artisan family. No factory, no middleman.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">

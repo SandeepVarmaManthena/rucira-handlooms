@@ -14,7 +14,7 @@ export function Footer() {
             <Logo />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
               Authentic handloom sarees, woven by hand and sourced directly
-              from master weavers across India — no middlemen, ever.
+              from master weavers across India. No middlemen, ever.
             </p>
             <div className="mt-5 flex items-center gap-3">
               {[InstagramGlyph, FacebookGlyph, YoutubeGlyph].map((Icon, i) => (

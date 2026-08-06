@@ -289,7 +289,7 @@ export const testimonials: Testimonial[] = [
     name: "Anjali Rao",
     location: "Bengaluru",
     quote:
-      "The saree arrived exactly as pictured — the silk, the zari work, everything. Knowing it came straight from the weaver's family made it feel even more special.",
+      "The saree arrived exactly as pictured: the silk, the zari work, everything. Knowing it came straight from the weaver's family made it feel even more special.",
     initials: "AR",
   },
   {
@@ -303,7 +303,7 @@ export const testimonials: Testimonial[] = [
     name: "Sanya Kapoor",
     location: "Delhi",
     quote:
-      "Wore the Vaidehi Kanjivaram to my sister's wedding — got so many compliments. Love that my purchase directly supported the weaver family.",
+      "Wore the Vaidehi Kanjivaram to my sister's wedding, got so many compliments. Love that my purchase directly supported the weaver family.",
     initials: "SK",
   },
 ];
@@ -313,7 +313,7 @@ export const craftSteps = [
     step: "01",
     title: "Spinning the Yarn",
     description:
-      "Raw silk and cotton fibres are hand-spun into fine, even threads — a skill passed down through generations.",
+      "Raw silk and cotton fibres are hand-spun into fine, even threads, a skill passed down through generations.",
   },
   {
     step: "02",
