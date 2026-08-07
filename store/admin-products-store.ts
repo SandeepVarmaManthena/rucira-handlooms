@@ -28,7 +28,7 @@ function seedProducts(): AdminProduct[] {
   return catalogProducts.map((product) => ({
     ...product,
     stock: SEED_STOCK[product.id] ?? 10,
-    images: [],
+    images: product.images ?? [],
   }));
 }
 

@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s http://localhost:3000/shop -o /tmp/shop.html)",
+      "Bash(curl -s http://localhost:3000/shop -o C:/Users/kyath/AppData/Local/Temp/shop.html)",
+      "Read(//c/Users/kyath/AppData/Local/Temp/**)",
+      "Read(//c//**)",
+      "Bash(npm ls *)",
+      "Bash(command -v npx)",
+      "Bash(npx --yes playwright --version)",
+      "Bash(node -e ' *)"
+    ]
+  }
+}

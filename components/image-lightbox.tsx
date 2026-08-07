@@ -44,26 +44,30 @@ export function ImageLightbox({
             />
             {images.length > 1 && (
               <>
-                <Button
-                  type="button"
-                  variant="secondary"
-                  size="icon"
-                  aria-label="Previous image"
-                  onClick={() => go(-1)}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full"
-                >
-                  <ChevronLeft className="size-4" />
-                </Button>
-                <Button
-                  type="button"
-                  variant="secondary"
-                  size="icon"
-                  aria-label="Next image"
-                  onClick={() => go(1)}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full"
-                >
-                  <ChevronRight className="size-4" />
-                </Button>
+                <span className="absolute left-2 top-1/2 -translate-y-1/2">
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    size="icon"
+                    aria-label="Previous image"
+                    onClick={() => go(-1)}
+                    className="rounded-full"
+                  >
+                    <ChevronLeft className="size-4" />
+                  </Button>
+                </span>
+                <span className="absolute right-2 top-1/2 -translate-y-1/2">
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    size="icon"
+                    aria-label="Next image"
+                    onClick={() => go(1)}
+                    className="rounded-full"
+                  >
+                    <ChevronRight className="size-4" />
+                  </Button>
+                </span>
                 <div className="absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-2.5 py-1 text-xs text-white">
                   {(index ?? 0) + 1} / {images.length}
                 </div>

@@ -43,7 +43,7 @@ export function ProductSlideshow({
           <img
             src={images[active]}
             alt={`${productName} view ${active + 1}`}
-            className="size-full object-cover"
+            className="size-full object-cover object-top"
           />
         </button>
 
@@ -53,26 +53,30 @@ export function ProductSlideshow({
 
         {images.length > 1 && (
           <>
-            <Button
-              type="button"
-              variant="secondary"
-              size="icon"
-              aria-label="Previous image"
-              onClick={() => go(-1)}
-              className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
-            >
-              <ChevronLeft className="size-4" />
-            </Button>
-            <Button
-              type="button"
-              variant="secondary"
-              size="icon"
-              aria-label="Next image"
-              onClick={() => go(1)}
-              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
-            >
-              <ChevronRight className="size-4" />
-            </Button>
+            <span className="absolute left-2 top-1/2 -translate-y-1/2">
+              <Button
+                type="button"
+                variant="secondary"
+                size="icon"
+                aria-label="Previous image"
+                onClick={() => go(-1)}
+                className="rounded-full opacity-0 transition-opacity group-hover:opacity-100"
+              >
+                <ChevronLeft className="size-4" />
+              </Button>
+            </span>
+            <span className="absolute right-2 top-1/2 -translate-y-1/2">
+              <Button
+                type="button"
+                variant="secondary"
+                size="icon"
+                aria-label="Next image"
+                onClick={() => go(1)}
+                className="rounded-full opacity-0 transition-opacity group-hover:opacity-100"
+              >
+                <ChevronRight className="size-4" />
+              </Button>
+            </span>
 
             <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5">
               {images.map((_, i) => (
@@ -107,7 +111,7 @@ export function ProductSlideshow({
               <img
                 src={src}
                 alt={`${productName} thumbnail ${i + 1}`}
-                className="size-full object-cover"
+                className="size-full object-cover object-top"
               />
             </button>
           ))}
