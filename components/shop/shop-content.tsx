@@ -14,12 +14,12 @@ import {
 import { ProductCard } from "@/components/product-card";
 import { FilterPanel } from "@/components/shop/filter-panel";
 import { MobileFilters } from "@/components/shop/mobile-filters";
-import {
-  catalogProducts,
-  type FabricType,
-  type ProductCategory,
-  type ProductColor,
-  type ProductPattern,
+import { useAdminProductsStore } from "@/store/admin-products-store";
+import type {
+  FabricType,
+  ProductCategory,
+  ProductColor,
+  ProductPattern,
 } from "@/lib/mock-data";
 import {
   CATEGORY_FILTERS,
@@ -48,6 +48,7 @@ function toggleValue<T>(list: T[], value: T): T[] {
 
 export function ShopContent() {
   const searchParams = useSearchParams();
+  const products = useAdminProductsStore((s) => s.products);
 
   const [selectedCategories, setSelectedCategories] = React.useState<
     ProductCategory[]
@@ -71,7 +72,7 @@ export function ShopContent() {
 
   const results = React.useMemo(
     () =>
-      filterAndSortProducts(catalogProducts, {
+      filterAndSortProducts(products, {
         categories: selectedCategories,
         fabrics: selectedFabrics,
         colors: selectedColors,
@@ -79,7 +80,7 @@ export function ShopContent() {
         priceRange,
         sort,
       }),
-    [selectedCategories, selectedFabrics, selectedColors, selectedPatterns, priceRange, sort],
+    [products, selectedCategories, selectedFabrics, selectedColors, selectedPatterns, priceRange, sort],
   );
 
   const activeCount =
