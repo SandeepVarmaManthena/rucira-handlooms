@@ -1,7 +1,8 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Heart, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { formatINR } from "@/lib/utils";
@@ -19,19 +20,45 @@ export function ProductCard({
   className?: string;
 }) {
   const addItem = useCartStore((s) => s.addItem);
-  const coverImage = product.images?.[0];
+  const images = product.images ?? [];
+  const [active, setActive] = React.useState(0);
+  const [isHovering, setIsHovering] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!isHovering || images.length < 2) return;
+    const id = setInterval(() => {
+      setActive((prev) => (prev + 1) % images.length);
+    }, 2200);
+    return () => clearInterval(id);
+  }, [isHovering, images.length]);
+
+  const coverImage = images[active];
 
   return (
     <motion.div {...fadeUp(Math.min(index, 8) * 0.05, 16)} className={className}>
-      <div className="group relative aspect-[3/4] overflow-hidden rounded-2xl">
+      <div
+        className="group relative aspect-[3/4] overflow-hidden rounded-2xl"
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => {
+          setIsHovering(false);
+          setActive(0);
+        }}
+      >
         <Link href={`/shop/${product.id}`} className="absolute inset-0 block">
           {coverImage ? (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              src={coverImage}
-              alt={product.name}
-              className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
+            <AnimatePresence initial={false}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <motion.img
+                key={active}
+                src={coverImage}
+                alt={product.name}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+                className="absolute inset-0 size-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+              />
+            </AnimatePresence>
           ) : (
             <>
               <div
@@ -41,6 +68,19 @@ export function ProductCard({
             </>
           )}
         </Link>
+
+        {images.length > 1 && (
+          <div className="pointer-events-none absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1 opacity-100 transition-opacity group-hover:opacity-0">
+            {images.map((_, i) => (
+              <span
+                key={i}
+                className={`h-1 rounded-full transition-all ${
+                  i === active ? "w-3 bg-background" : "w-1 bg-background/60"
+                }`}
+              />
+            ))}
+          </div>
+        )}
 
         {product.tag && (
           <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-background/90 px-2.5 py-1 text-[0.65rem] font-semibold tracking-wide text-foreground backdrop-blur-sm">

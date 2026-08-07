@@ -121,6 +121,7 @@ export type Product = {
   originalPrice?: number;
   gradient: string;
   tag?: string;
+  images?: string[];
 };
 
 export const featuredProducts: Product[] = [
@@ -137,6 +138,11 @@ export const featuredProducts: Product[] = [
     originalPrice: 17999,
     gradient: "from-[oklch(0.33_0.13_18)] to-[oklch(0.5_0.16_30)]",
     tag: "Bestseller",
+    images: [
+      "/generated/20260807T161751_u3fqde_front.png",
+      "/generated/20260807T161751_u3fqde_side.png",
+      "/generated/20260807T161751_u3fqde_back.png",
+    ],
   },
   {
     id: "rc-002",
@@ -149,6 +155,11 @@ export const featuredProducts: Product[] = [
     pattern: "buta-motif",
     price: 3299,
     gradient: "from-[oklch(0.6_0.08_60)] to-[oklch(0.78_0.1_80)]",
+    images: [
+      "/generated/20260807T161751_u3fqde_front.png",
+      "/generated/20260807T161751_u3fqde_side.png",
+      "/generated/20260807T161751_u3fqde_back.png",
+    ],
   },
   {
     id: "rc-003",
