@@ -10,8 +10,7 @@ import { scaleIn } from "@/lib/motion";
 
 const SALE_DURATION_MS = (3 * 24 + 8) * 60 * 60 * 1000;
 
-function getTimeLeft(target: number) {
-  const diff = Math.max(0, target - Date.now());
+function splitDuration(diff: number) {
   return {
     days: Math.floor(diff / (1000 * 60 * 60 * 24)),
     hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
@@ -20,14 +19,22 @@ function getTimeLeft(target: number) {
   };
 }
 
+function getTimeLeft(target: number) {
+  return splitDuration(Math.max(0, target - Date.now()));
+}
+
+// Clock-free so the server HTML and the first client render always match.
+const INITIAL_TIME_LEFT = splitDuration(SALE_DURATION_MS);
+
 export function SaleBanner() {
-  const [target] = React.useState(() => Date.now() + SALE_DURATION_MS);
-  const [timeLeft, setTimeLeft] = React.useState(() => getTimeLeft(target));
+  const [timeLeft, setTimeLeft] = React.useState(INITIAL_TIME_LEFT);
 
   React.useEffect(() => {
+    const target = Date.now() + SALE_DURATION_MS;
+    setTimeLeft(getTimeLeft(target));
     const id = setInterval(() => setTimeLeft(getTimeLeft(target)), 1000);
     return () => clearInterval(id);
-  }, [target]);
+  }, []);
 
   const units: { value: number; label: string }[] = [
     { value: timeLeft.days, label: "Days" },
