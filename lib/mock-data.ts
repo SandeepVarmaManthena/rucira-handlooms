@@ -3,6 +3,7 @@ export type Category = {
   description: string;
   href: string;
   gradient: string;
+  image: string;
 };
 
 export const categories: Category[] = [
@@ -11,54 +12,63 @@ export const categories: Category[] = [
     description: "Regal silk, woven for weddings",
     href: "/shop?category=kanjivaram",
     gradient: "from-[oklch(0.33_0.13_18)] to-[oklch(0.48_0.15_25)]",
+    image: "/images/saree/Kanjivaram-Silk.png",
   },
   {
     name: "Banarasi Silk",
     description: "Timeless brocade from Varanasi",
     href: "/shop?category=banarasi",
     gradient: "from-[oklch(0.4_0.12_25)] to-[oklch(0.58_0.14_35)]",
+    image: "/images/saree/Banarasi-Silk.jpg",
   },
   {
     name: "Jamdani Weaves",
     description: "Fine handloom motifs from Bengal",
     href: "/shop?category=jamdani",
     gradient: "from-[oklch(0.6_0.06_120)] to-[oklch(0.78_0.09_110)]",
+    image: "/images/saree/Jamdani-Weaves.png",
   },
   {
     name: "Tussar Silk",
     description: "Wild silk with a natural sheen",
     href: "/shop?category=tussar",
     gradient: "from-[oklch(0.55_0.1_75)] to-[oklch(0.78_0.14_85)]",
+    image: "/images/saree/Tussar-Silk.jpg",
   },
   {
     name: "Paithani",
     description: "Kaleidoscope borders from Maharashtra",
     href: "/shop?category=paithani",
     gradient: "from-[oklch(0.4_0.13_35)] to-[oklch(0.6_0.14_50)]",
+    image: "/images/saree/Paithani.jpg",
   },
   {
     name: "Mangalagiri Cotton",
     description: "Crisp handloom cotton, everyday ease",
     href: "/shop?category=mangalagiri",
     gradient: "from-[oklch(0.65_0.07_50)] to-[oklch(0.82_0.08_75)]",
+    image: "/images/saree/Mangalagiri-Cotton.jpg",
   },
   {
     name: "Chettinad Cotton",
     description: "Bold checks from Tamil Nadu",
     href: "/shop?category=chettinad",
     gradient: "from-[oklch(0.5_0.1_25)] to-[oklch(0.7_0.11_45)]",
+    image: "/images/saree/Chettinad-Cotton.jpg",
   },
   {
     name: "Kota Doria",
     description: "Featherlight weave for warm days",
     href: "/shop?category=kota",
     gradient: "from-[oklch(0.55_0.06_140)] to-[oklch(0.74_0.08_120)]",
+    image: "/images/saree/Kota-Doria.jpg",
   },
   {
     name: "Wedding Edit",
     description: "Heirlooms in the making",
     href: "/shop?category=kanjivaram,banarasi,paithani",
     gradient: "from-[oklch(0.78_0.14_85)] to-[oklch(0.55_0.13_35)]",
+    image: "/images/saree/Wedding-Edit.jpg",
   },
 ];
 

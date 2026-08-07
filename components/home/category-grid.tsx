@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
@@ -47,11 +48,14 @@ export function CategoryGrid() {
               href={category.href}
               className="group relative flex aspect-square flex-col justify-end overflow-hidden rounded-2xl p-3.5 sm:p-4"
             >
-              <div
-                className={`absolute inset-0 bg-gradient-to-br ${category.gradient} transition-transform duration-500 group-hover:scale-110`}
+              <Image
+                src={category.image}
+                alt={category.name}
+                fill
+                sizes="(min-width: 640px) 25vw, 50vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/0 to-black/10" />
-              <div className="absolute inset-0 opacity-20 [background-image:repeating-linear-gradient(115deg,#fff_0,#fff_1px,transparent_1px,transparent_16px)]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/20" />
 
               <div className="relative">
                 <h3 className="font-heading text-sm font-semibold text-white sm:text-base">
