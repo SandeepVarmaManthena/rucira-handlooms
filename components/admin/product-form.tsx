@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ImageUpload } from "@/components/admin/image-upload";
+import { AIGarmentGenerator, ImageUpload } from "@/components/admin/image-upload";
 import { useAdminProductsStore, type AdminProduct } from "@/store/admin-products-store";
 import {
   CATEGORY_FILTERS,
@@ -336,6 +336,10 @@ export function ProductForm({ product }: { product?: AdminProduct }) {
         <div className="rounded-2xl border border-border bg-card p-5 sm:p-6">
           <ImageUpload images={images} onChange={setImages} />
         </div>
+      </div>
+
+      <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
+        <AIGarmentGenerator images={images} onChange={setImages} />
       </div>
 
       <div className="flex items-center justify-end gap-3">

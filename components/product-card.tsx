@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Heart, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,22 +14,36 @@ export function ProductCard({
   index = 0,
   className,
 }: {
-  product: Product;
+  product: Product & { images?: string[] };
   index?: number;
   className?: string;
 }) {
   const addItem = useCartStore((s) => s.addItem);
+  const coverImage = product.images?.[0];
 
   return (
     <motion.div {...fadeUp(Math.min(index, 8) * 0.05, 16)} className={className}>
       <div className="group relative aspect-[3/4] overflow-hidden rounded-2xl">
-        <div
-          className={`absolute inset-0 bg-gradient-to-br ${product.gradient} transition-transform duration-500 group-hover:scale-105`}
-        />
-        <div className="absolute inset-0 opacity-20 [background-image:repeating-linear-gradient(70deg,#fff_0,#fff_1px,transparent_1px,transparent_13px)] transition-transform duration-700 ease-out group-hover:scale-150" />
+        <Link href={`/shop/${product.id}`} className="absolute inset-0 block">
+          {coverImage ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={coverImage}
+              alt={product.name}
+              className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          ) : (
+            <>
+              <div
+                className={`absolute inset-0 bg-gradient-to-br ${product.gradient} transition-transform duration-500 group-hover:scale-105`}
+              />
+              <div className="absolute inset-0 opacity-20 [background-image:repeating-linear-gradient(70deg,#fff_0,#fff_1px,transparent_1px,transparent_13px)] transition-transform duration-700 ease-out group-hover:scale-150" />
+            </>
+          )}
+        </Link>
 
         {product.tag && (
-          <span className="absolute left-3 top-3 rounded-full bg-background/90 px-2.5 py-1 text-[0.65rem] font-semibold tracking-wide text-foreground backdrop-blur-sm">
+          <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-background/90 px-2.5 py-1 text-[0.65rem] font-semibold tracking-wide text-foreground backdrop-blur-sm">
             {product.tag}
           </span>
         )}
@@ -47,7 +62,7 @@ export function ProductCard({
               id: product.id,
               name: product.name,
               price: product.price,
-              image: product.gradient,
+              image: coverImage ?? product.gradient,
             })
           }
           className="absolute bottom-3 left-3 right-3 h-9 translate-y-14 rounded-full opacity-0 shadow-lg transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
@@ -57,7 +72,7 @@ export function ProductCard({
         </Button>
       </div>
 
-      <div className="mt-3">
+      <Link href={`/shop/${product.id}`} className="mt-3 block">
         <h3 className="font-heading text-sm font-semibold sm:text-base">
           {product.name}
         </h3>
@@ -74,7 +89,7 @@ export function ProductCard({
             </span>
           )}
         </div>
-      </div>
+      </Link>
     </motion.div>
   );
 }
