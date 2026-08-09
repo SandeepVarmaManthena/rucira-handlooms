@@ -9,20 +9,20 @@ export function Testimonials() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
       <div className="mx-auto max-w-xl text-center">
-        <p className="text-xs font-semibold tracking-[0.2em] text-primary">
-          FROM OUR CUSTOMERS
+        <p className="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-primary sm:text-xs">
+          From our customers
         </p>
-        <h2 className="mt-2 text-balance font-heading text-2xl font-semibold sm:text-3xl">
+        <h2 className="mt-2 text-balance font-heading text-2xl font-semibold tracking-[-0.02em] sm:text-3xl lg:text-[2.4rem]">
           Stories woven with love
         </h2>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-5 sm:mt-12 sm:grid-cols-3 sm:gap-6">
+      <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-3 sm:gap-6">
         {testimonials.map((t, i) => (
           <motion.div
             key={t.name}
             {...fadeUp(i * 0.08, 16)}
-            className="flex flex-col rounded-2xl border border-border bg-card p-6"
+            className="group flex flex-col rounded-[1.6rem] border border-border bg-card p-6 shadow-[0_18px_40px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_rgba(15,23,42,0.08)]"
           >
             <Quote className="size-6 text-accent" />
             <div className="mt-3 flex gap-0.5 text-accent">

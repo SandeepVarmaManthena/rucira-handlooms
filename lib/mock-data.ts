@@ -203,6 +203,11 @@ export const catalogProducts: Product[] = [
     price: 15999,
     gradient: "from-[oklch(0.4_0.12_25)] to-[oklch(0.58_0.14_35)]",
     tag: "New",
+    images: [
+      "/images/saree/Banarasi-Silk.jpg",
+      "/generated/20260808T143120_uiaiwv_front.png",
+      "/generated/20260808T143120_uiaiwv_side.png",
+    ],
   },
   {
     id: "rc-006",
@@ -215,6 +220,11 @@ export const catalogProducts: Product[] = [
     pattern: "checks",
     price: 2799,
     gradient: "from-[oklch(0.65_0.07_50)] to-[oklch(0.82_0.08_75)]",
+    images: [
+      "/images/saree/Mangalagiri-Cotton.jpg",
+      "/images/saree/Kota-Doria.jpg",
+      "/images/saree/Chettinad-Cotton.jpg",
+    ],
   },
   {
     id: "rc-007",
@@ -229,6 +239,11 @@ export const catalogProducts: Product[] = [
     originalPrice: 4299,
     gradient: "from-[oklch(0.5_0.1_25)] to-[oklch(0.7_0.11_45)]",
     tag: "Sale",
+    images: [
+      "/images/saree/Chettinad-Cotton.jpg",
+      "/images/saree/Mangalagiri-Cotton.jpg",
+      "/images/saree/Kota-Doria.jpg",
+    ],
   },
   {
     id: "rc-008",
@@ -241,6 +256,11 @@ export const catalogProducts: Product[] = [
     pattern: "stripes",
     price: 5299,
     gradient: "from-[oklch(0.55_0.06_140)] to-[oklch(0.74_0.08_120)]",
+    images: [
+      "/images/saree/Kota-Doria.jpg",
+      "/images/saree/Jamdani-Weaves.png",
+      "/generated/20260807T161751_u3fqde_front.png",
+    ],
   },
   {
     id: "rc-009",
@@ -255,6 +275,11 @@ export const catalogProducts: Product[] = [
     originalPrice: 4599,
     gradient: "from-[oklch(0.6_0.05_110)] to-[oklch(0.8_0.08_100)]",
     tag: "Sale",
+    images: [
+      "/images/saree/Jamdani-Weaves.png",
+      "/images/saree/Banarasi-Silk.jpg",
+      "/generated/20260807T161751_u3fqde_side.png",
+    ],
   },
   {
     id: "rc-010",
@@ -268,6 +293,11 @@ export const catalogProducts: Product[] = [
     price: 24999,
     gradient: "from-[oklch(0.3_0.14_15)] to-[oklch(0.55_0.15_30)]",
     tag: "Bestseller",
+    images: [
+      "/images/saree/Kanjivaram-Silk.png",
+      "/generated/20260807T161751_u3fqde_front.png",
+      "/generated/20260807T161751_u3fqde_back.png",
+    ],
   },
   {
     id: "rc-011",
@@ -282,6 +312,11 @@ export const catalogProducts: Product[] = [
     originalPrice: 26999,
     gradient: "from-[oklch(0.35_0.13_20)] to-[oklch(0.72_0.13_80)]",
     tag: "Festive Sale",
+    images: [
+      "/images/saree/Banarasi-Silk.jpg",
+      "/images/saree/Wedding-Edit.jpg",
+      "/generated/20260808T143120_uiaiwv_side.png",
+    ],
   },
   {
     id: "rc-012",
@@ -295,6 +330,11 @@ export const catalogProducts: Product[] = [
     price: 18999,
     gradient: "from-[oklch(0.4_0.13_35)] to-[oklch(0.6_0.14_50)]",
     tag: "New",
+    images: [
+      "/images/saree/Paithani.jpg",
+      "/images/saree/Wedding-Edit.jpg",
+      "/generated/20260807T161751_u3fqde_back.png",
+    ],
   },
 ];
 
@@ -357,10 +397,10 @@ export const craftSteps = [
 ];
 
 export const impactStats = [
-  { value: "500+", label: "Weaver families supported" },
-  { value: "12", label: "States across India" },
-  { value: "50,000+", label: "Sarees handwoven & sold" },
-  { value: "0", label: "Middlemen in between" },
+  { value: 500, suffix: "+", label: "Weaver families supported" },
+  { value: 12, suffix: "", label: "States across India" },
+  { value: 50000, suffix: "+", label: "Sarees handwoven & sold" },
+  { value: 0, suffix: "", label: "Middlemen in between" },
 ];
 
 export type JourneyStep = {
@@ -369,56 +409,63 @@ export type JourneyStep = {
   duration: string;
   description: string;
   gradient: string;
+  image: string;
 };
 
 export const journeySteps: JourneyStep[] = [
   {
     step: "01",
-    title: "Sourcing the Fibre",
+    title: "Sourcing the fibre",
     duration: "Day 1",
     description:
-      "We work directly with silk and cotton farmers, choosing only the finest, ethically sourced fibres for every saree.",
+      "We choose the finest silk and cotton from trusted farms and mills, keeping the process transparent and honest from the start.",
     gradient: "from-[oklch(0.55_0.09_55)] to-[oklch(0.75_0.09_70)]",
+    image: "/images/saree/Kanjivaram-Silk.png",
   },
   {
     step: "02",
-    title: "Spinning the Yarn",
-    duration: "Day 2–3",
+    title: "Spinning the yarn",
+    duration: "Day 2-3",
     description:
-      "Raw fibre is hand-spun into fine, even threads — a quiet, meditative skill passed down through generations.",
+      "The fibre is hand-spun into strong, even yarns, a skill that depends on patience and a steady hand.",
     gradient: "from-[oklch(0.6_0.08_60)] to-[oklch(0.78_0.1_80)]",
+    image: "/images/saree/Mangalagiri-Cotton.jpg",
   },
   {
     step: "03",
-    title: "Natural Dyeing",
-    duration: "Day 4–5",
+    title: "Natural dyeing",
+    duration: "Day 4-5",
     description:
-      "Threads are dyed in small batches using time-honoured, low-impact techniques — giving every saree its rich, lasting colour.",
+      "The yarn is dyed in small batches using traditional methods that preserve colour and texture without unnecessary waste.",
     gradient: "from-[oklch(0.5_0.1_75)] to-[oklch(0.78_0.14_85)]",
+    image: "/images/saree/Tussar-Silk.jpg",
   },
   {
     step: "04",
-    title: "Warping the Loom",
+    title: "Preparing the loom",
     duration: "Day 6",
     description:
-      "Thousands of threads are aligned by hand onto the loom, setting the exact pattern the saree will carry.",
+      "Thousands of threads are aligned by hand before the loom starts turning, setting the pattern for the entire saree.",
     gradient: "from-[oklch(0.45_0.1_30)] to-[oklch(0.6_0.13_40)]",
+    image: "/images/saree/Kota-Doria.jpg",
   },
   {
     step: "05",
-    title: "Hand Weaving",
-    duration: "Day 7–12",
+    title: "Hand weaving",
+    duration: "Day 7-12",
     description:
-      "The master weaver takes over — interlacing warp and weft on the pit loom, thread by thread, motif by motif.",
+      "The master weaver works on the loom, rhythm by rhythm, as the border, motif and body of the saree take shape.",
     gradient: "from-[oklch(0.33_0.13_18)] to-[oklch(0.5_0.16_30)]",
+    image: "/images/saree/Wedding-Edit.jpg",
   },
   {
     step: "06",
-    title: "Finishing & Quality Check",
+    title: "Finishing and quality check",
     duration: "Day 13",
     description:
-      "Every saree is washed, pressed, and inspected by hand before it's wrapped and sent directly from the loom to you.",
+      "Each saree is washed, pressed and checked by hand before we pack it and send it directly to you.",
     gradient: "from-[oklch(0.5_0.07_130)] to-[oklch(0.75_0.09_115)]",
+    image: "/images/saree/Banarasi-Silk.jpg",
   },
 ];
 

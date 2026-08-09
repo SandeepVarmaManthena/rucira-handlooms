@@ -8,7 +8,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Checkbox } from "@/components/ui/checkbox";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
 import type {
   FabricType,
@@ -37,6 +37,8 @@ export function FilterPanel({
   selectedPatterns,
   onTogglePattern,
   priceRange,
+  priceMin,
+  priceMax,
   onPriceRangeChange,
   activeCount,
   onClear,
@@ -51,23 +53,43 @@ export function FilterPanel({
   selectedPatterns: ProductPattern[];
   onTogglePattern: (pattern: ProductPattern) => void;
   priceRange: PriceRangeValue;
-  onPriceRangeChange: (value: PriceRangeValue) => void;
+  priceMin: number;
+  priceMax: number;
+  onPriceRangeChange: (
+    value: PriceRangeValue,
+    minValue?: number,
+    maxValue?: number,
+  ) => void;
   activeCount: number;
   onClear: () => void;
   showHeader?: boolean;
 }) {
+  const formatPrice = (amount: number) =>
+    new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      maximumFractionDigits: 0,
+    }).format(amount);
+
+  const handlePriceSlider = (value: number[]) => {
+    const nextMin = Math.min(value[0] ?? 0, value[1] ?? 30000);
+    const nextMax = Math.max(value[0] ?? 0, value[1] ?? 30000);
+
+    onPriceRangeChange("custom", nextMin, nextMax);
+  };
+
   return (
-    <div>
+    <div className="rounded-[1.5rem] border border-border/80 bg-card/80 p-4 shadow-[0_14px_40px_rgba(17,17,17,0.04)] backdrop-blur-sm">
       {showHeader && (
         <div className="mb-4 flex items-center justify-between">
-          <h3 className="font-heading text-sm font-semibold tracking-wide">
+          <h3 className="font-heading text-sm font-semibold tracking-[0.12em] text-foreground uppercase">
             Filters
           </h3>
           {activeCount > 0 && (
             <button
               type="button"
               onClick={onClear}
-              className="text-xs font-medium text-primary hover:underline"
+              className="text-xs font-medium text-primary transition hover:text-primary/80"
             >
               Clear all
             </button>
@@ -141,14 +163,17 @@ export function FilterPanel({
                     aria-pressed={selected}
                     onClick={() => onToggleColor(color.value)}
                     className={cn(
-                      "relative flex size-8 items-center justify-center rounded-full border-2 transition-transform",
+                      "group relative flex size-9 items-center justify-center rounded-full border-2 transition-all duration-200",
                       selected
-                        ? "border-primary"
-                        : "border-transparent hover:scale-105",
+                        ? "border-primary shadow-[0_0_0_3px_rgba(var(--primary),0.12)]"
+                        : "border-transparent hover:scale-105 hover:border-border/80",
                     )}
                   >
+                    <span className="absolute -top-8 left-1/2 -translate-x-1/2 rounded-full border border-border bg-background px-2 py-1 text-[10px] font-medium text-foreground opacity-0 shadow-sm transition group-hover:opacity-100">
+                      {color.label}
+                    </span>
                     <span
-                      className="size-6 rounded-full ring-1 ring-foreground/15"
+                      className="size-6 rounded-full ring-1 ring-foreground/10 transition-transform group-hover:scale-110"
                       style={{ backgroundColor: color.swatch }}
                     />
                     {selected && (
@@ -197,25 +222,73 @@ export function FilterPanel({
             Price
           </AccordionTrigger>
           <AccordionContent>
-            <RadioGroup
-              value={priceRange}
-              onValueChange={(value) =>
-                onPriceRangeChange(value as PriceRangeValue)
-              }
-              className="gap-3 pt-1"
-            >
-              {PRICE_RANGES.map((range) => (
-                <label
-                  key={range.value}
-                  className="group flex cursor-pointer items-center gap-2.5"
+            <div className="space-y-4 pt-2">
+              <div className="flex items-center justify-between rounded-full border border-border bg-muted/40 px-2.5 py-1.5 text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+                <span>Budget</span>
+                <button
+                  type="button"
+                  onClick={() => onPriceRangeChange("all")}
+                  className={cn(
+                    "font-medium transition",
+                    priceRange === "all"
+                      ? "text-primary"
+                      : "text-muted-foreground hover:text-foreground",
+                  )}
                 >
-                  <RadioGroupItem value={range.value} />
-                  <span className="text-sm text-foreground/85 transition-colors group-hover:text-foreground">
-                    {range.label}
-                  </span>
-                </label>
-              ))}
-            </RadioGroup>
+                  Any
+                </button>
+              </div>
+
+              <div className="rounded-2xl border border-border bg-muted/20 p-3">
+                <div className="mb-3 flex items-center justify-between text-xs font-medium text-foreground/80">
+                  <span>{formatPrice(priceMin)}</span>
+                  <span>{formatPrice(priceMax)}</span>
+                </div>
+                <Slider
+                  min={0}
+                  max={30000}
+                  step={500}
+                  value={[priceMin, priceMax]}
+                  onValueChange={(value) => handlePriceSlider(value)}
+                  className="w-full"
+                />
+              </div>
+
+              <div className="grid gap-2">
+                {PRICE_RANGES.filter((range) => range.value !== "all").map(
+                  (range) => {
+                    const isSelected = priceRange === range.value;
+                    return (
+                      <button
+                        key={range.value}
+                        type="button"
+                        onClick={() => {
+                          const presetMap: Record<
+                            Exclude<PriceRangeValue, "all" | "custom">,
+                            { min: number; max: number }
+                          > = {
+                            "under-5000": { min: 0, max: 4999 },
+                            "5000-10000": { min: 5000, max: 9999 },
+                            "10000-20000": { min: 10000, max: 19999 },
+                            "above-20000": { min: 20000, max: 30000 },
+                          };
+                          const preset = presetMap[range.value];
+                          onPriceRangeChange(range.value, preset.min, preset.max);
+                        }}
+                        className={cn(
+                          "w-full rounded-full border px-3 py-2 text-left text-sm transition",
+                          isSelected
+                            ? "border-primary bg-primary/5 text-primary"
+                            : "border-border bg-background text-foreground/80 hover:border-primary/40 hover:text-foreground",
+                        )}
+                      >
+                        {range.label}
+                      </button>
+                    );
+                  },
+                )}
+              </div>
+            </div>
           </AccordionContent>
         </AccordionItem>
       </Accordion>

@@ -68,6 +68,8 @@ export function ShopContent() {
       ? (value as PriceRangeValue)
       : "all";
   });
+  const [priceMin, setPriceMin] = React.useState(0);
+  const [priceMax, setPriceMax] = React.useState(30000);
   const [sort, setSort] = React.useState<SortValue>("recommended");
 
   const results = React.useMemo(
@@ -78,9 +80,11 @@ export function ShopContent() {
         colors: selectedColors,
         patterns: selectedPatterns,
         priceRange,
+        priceMin,
+        priceMax,
         sort,
       }),
-    [products, selectedCategories, selectedFabrics, selectedColors, selectedPatterns, priceRange, sort],
+    [products, selectedCategories, selectedFabrics, selectedColors, selectedPatterns, priceRange, priceMin, priceMax, sort],
   );
 
   const activeCount =
@@ -96,6 +100,8 @@ export function ShopContent() {
     setSelectedColors([]);
     setSelectedPatterns([]);
     setPriceRange("all");
+    setPriceMin(0);
+    setPriceMax(30000);
   };
 
   const filterProps = {
@@ -112,45 +118,51 @@ export function ShopContent() {
     onTogglePattern: (v: ProductPattern) =>
       setSelectedPatterns((prev) => toggleValue(prev, v)),
     priceRange,
-    onPriceRangeChange: setPriceRange,
+    priceMin,
+    priceMax,
+    onPriceRangeChange: (
+      nextRange: PriceRangeValue,
+      nextMin = priceMin,
+      nextMax = priceMax,
+    ) => {
+      setPriceRange(nextRange);
+      setPriceMin(nextMin);
+      setPriceMax(nextMax);
+    },
     activeCount,
     onClear: clearFilters,
   };
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
-      <div className="mb-8 sm:mb-10">
-        <p className="text-xs font-semibold tracking-[0.2em] text-primary">
-          THE COLLECTION
-        </p>
-        <h1 className="mt-2 font-heading text-3xl font-semibold sm:text-4xl">
-          Shop All Sarees
+    <div className="mx-auto max-w-7xl px-3 py-6 sm:px-6 sm:py-10 lg:px-8 lg:py-14">
+      <header className="mb-6 sm:mb-8 lg:mb-10">
+        <h1 className="font-heading text-[2rem] font-semibold leading-none sm:text-4xl lg:text-5xl">
+          Shop Sarees
         </h1>
-        <p className="mt-2 max-w-xl text-muted-foreground">
-          Handwoven, sourced directly from weaver families across India — no
-          two pieces are ever quite the same.
+        <p className="mt-2 max-w-xl text-sm text-muted-foreground sm:mt-3 sm:text-base">
+          Made by hand, one weave at a time.
         </p>
-      </div>
+      </header>
 
-      <div className="lg:grid lg:grid-cols-[16rem_1fr] lg:items-start lg:gap-10">
+      <div className="lg:grid lg:grid-cols-[17rem_minmax(0,1fr)] lg:items-start lg:gap-10">
         <aside className="hidden lg:block">
-          <div className="sticky top-24">
+          <div className="lg:sticky lg:top-20">
             <FilterPanel {...filterProps} />
           </div>
         </aside>
 
-        <div>
-          <div className="flex items-center justify-between gap-3 border-b border-border pb-4">
-            <p className="text-sm text-muted-foreground">
+        <div className="min-w-0">
+          <div className="flex items-center justify-between gap-2 border-b border-border pb-3 sm:pb-4">
+            <p className="text-xs text-muted-foreground sm:text-sm">
               {results.length} {results.length === 1 ? "saree" : "sarees"}
             </p>
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2 sm:gap-2.5">
               <MobileFilters {...filterProps} resultCount={results.length} />
               <Select
                 value={sort}
                 onValueChange={(value) => setSort(value as SortValue)}
               >
-                <SelectTrigger className="h-9 w-[10.5rem] rounded-full text-sm">
+                <SelectTrigger className="h-9 w-[8.6rem] rounded-full text-xs sm:w-[10.5rem] sm:text-sm">
                   <SelectValue placeholder="Sort by">
                     {(value: SortValue) =>
                       SORT_OPTIONS.find((option) => option.value === value)
@@ -170,7 +182,7 @@ export function ShopContent() {
           </div>
 
           {results.length > 0 ? (
-            <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 sm:mt-8 sm:gap-x-5 sm:gap-y-10 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="mt-4 grid grid-cols-2 gap-x-3 gap-y-6 sm:mt-8 sm:gap-x-5 sm:gap-y-10 lg:grid-cols-3 xl:grid-cols-4">
               {results.map((product, i) => (
                 <ProductCard key={product.id} product={product} index={i} />
               ))}

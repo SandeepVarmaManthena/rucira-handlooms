@@ -11,7 +11,7 @@ import { JourneyCta } from "@/components/journey/journey-cta";
 export const metadata: Metadata = {
   title: "Our Journey — Rucira Sarees",
   description:
-    "From raw thread to finished drape — see exactly how a Rucira saree is made, and meet the weavers behind it.",
+    "See how each Rucira saree is made, from fibre to finish, and meet the artisan families behind the weave.",
 };
 
 export default function JourneyPage() {

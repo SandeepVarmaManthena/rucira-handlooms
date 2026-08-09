@@ -31,9 +31,13 @@ export function SaleBanner() {
 
   React.useEffect(() => {
     const target = Date.now() + SALE_DURATION_MS;
-    setTimeLeft(getTimeLeft(target));
-    const id = setInterval(() => setTimeLeft(getTimeLeft(target)), 1000);
-    return () => clearInterval(id);
+    const sync = () => setTimeLeft(getTimeLeft(target));
+    const timeout = setTimeout(sync, 0);
+    const id = setInterval(sync, 1000);
+    return () => {
+      clearTimeout(timeout);
+      clearInterval(id);
+    };
   }, []);
 
   const units: { value: number; label: string }[] = [
@@ -44,10 +48,10 @@ export function SaleBanner() {
   ];
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+    <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-14">
       <motion.div
         {...scaleIn()}
-        className="relative overflow-hidden rounded-3xl px-6 py-10 text-white sm:px-10 sm:py-12"
+        className="relative overflow-hidden rounded-[2rem] px-5 py-8 text-white sm:px-8 sm:py-10"
       >
         <Image
           src="/images/hero/sale-banner.png"
@@ -58,18 +62,17 @@ export function SaleBanner() {
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-maroon/85 via-[oklch(0.4_0.14_22)]/78 to-[oklch(0.55_0.13_35)]/72" />
 
-        <div className="relative flex flex-col items-center gap-8 text-center lg:flex-row lg:justify-between lg:text-left">
+        <div className="relative flex flex-col items-center gap-6 text-center lg:flex-row lg:justify-between lg:text-left">
           <div>
-            <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+            <span className="inline-flex items-center gap-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-accent sm:text-xs">
               <Flame className="size-3.5" />
-              Festive Sale
+              National Handloom Day
             </span>
-            <h2 className="mt-2 text-balance font-heading text-2xl font-semibold sm:text-3xl">
+            <h2 className="mt-2 text-balance font-heading text-2xl font-semibold tracking-[-0.02em] sm:text-3xl lg:text-[2.2rem]">
               Up to 40% off handloom silks
             </h2>
             <p className="mt-2 max-w-sm text-balance text-sm text-white/75 sm:text-base">
-              On select Kanjivaram, Banarasi &amp; Tussar weaves, while
-              stocks from this season&rsquo;s looms last.
+              Thoughtful weaves for weddings, gifting and everyday rituals.
             </p>
           </div>
 

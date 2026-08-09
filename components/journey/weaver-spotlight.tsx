@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 import { featuredWeaver, weaverProfiles } from "@/lib/mock-data";
@@ -24,14 +25,20 @@ export function WeaverSpotlight() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7, ease: EASE }}
-            className="relative aspect-[4/3] overflow-hidden rounded-2xl"
+            className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border bg-card"
           >
-            <div
-              className={`absolute inset-0 bg-gradient-to-br ${featuredWeaver.gradient}`}
+            <Image
+              src="/images/saree/Paithani.jpg"
+              alt="A close-up of a handcrafted paithani saree"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
             />
-            <div className="absolute inset-0 opacity-[0.16] [background-image:repeating-linear-gradient(115deg,white_0,white_1px,transparent_1px,transparent_15px)]" />
-            <div className="absolute inset-x-0 bottom-0 h-8 bg-black/15">
-              <div className="absolute inset-x-0 top-0 h-2 opacity-70 [background-image:radial-gradient(circle_at_8px_0,transparent_6px,white_6px,white_7px,transparent_7px)] [background-repeat:repeat-x] [background-size:16px_16px]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-5">
+              <div className="inline-flex items-center rounded-full bg-black/25 px-3 py-1.5 text-[0.56rem] font-medium uppercase tracking-[0.14em] text-white/90 backdrop-blur-sm">
+                Maharashtra
+              </div>
             </div>
           </motion.div>
 
@@ -43,13 +50,12 @@ export function WeaverSpotlight() {
               {featuredWeaver.name}
             </h3>
             <p className="mt-1 text-sm text-muted-foreground">
-              {featuredWeaver.village} &middot; {featuredWeaver.craft} &middot;{" "}
-              {featuredWeaver.experience}
+              {featuredWeaver.village} • {featuredWeaver.craft} • {featuredWeaver.experience}
             </p>
 
             <Quote className="mt-5 size-5 text-accent" />
             <p className="mt-2 text-base leading-relaxed text-foreground/90">
-              &ldquo;{featuredWeaver.quote}&rdquo;
+              “{featuredWeaver.quote}”
             </p>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               {featuredWeaver.story}
@@ -75,7 +81,7 @@ export function WeaverSpotlight() {
 
               <Quote className="mt-5 size-5 text-accent" />
               <p className="mt-2 flex-1 text-sm leading-relaxed text-foreground/90">
-                &ldquo;{weaver.quote}&rdquo;
+                “{weaver.quote}”
               </p>
 
               <div className="mt-6 border-t border-border pt-4">

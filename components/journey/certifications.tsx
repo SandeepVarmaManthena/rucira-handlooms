@@ -13,11 +13,10 @@ export function Certifications() {
           HOW WE VERIFY
         </p>
         <h2 className="mt-2 text-balance font-heading text-2xl font-semibold sm:text-3xl">
-          Genuine, and provably so
+          Real craft, clear sourcing.
         </h2>
         <p className="mt-3 text-balance text-muted-foreground">
-          &ldquo;Handloom&rdquo; is a promise we back with sourcing standards,
-          not just a word on a label.
+          We work with trusted clusters and clear sourcing standards, so the story behind each saree is as solid as the weave itself.
         </p>
       </div>
 

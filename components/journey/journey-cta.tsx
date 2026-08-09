@@ -14,13 +14,10 @@ export function JourneyCta() {
         className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-maroon via-[oklch(0.4_0.14_22)] to-[oklch(0.52_0.13_30)] px-6 py-14 text-center text-white sm:px-12 sm:py-20"
       >
         <h2 className="relative text-balance font-heading text-2xl font-semibold sm:text-3xl lg:text-4xl">
-          Now you know the story.
-          <br />
-          Ready to own a piece of it?
+          Ready to bring one home?
         </h2>
         <p className="relative mx-auto mt-3 max-w-md text-balance text-sm text-white/80 sm:text-base">
-          Every saree in our collection carries the name of the weaver who
-          made it.
+          Every saree in our collection comes with a story, a maker and a craft tradition behind it.
         </p>
 
         <Button

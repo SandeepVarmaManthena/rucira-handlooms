@@ -10,15 +10,13 @@ export function Philosophy() {
         {...fadeUp(0)}
         className="text-balance font-heading text-2xl font-medium leading-snug sm:text-3xl lg:text-4xl"
       >
-        &ldquo;A handloom saree shouldn&rsquo;t travel through five hands
-        before it reaches you — and leave nothing behind for the one who
-        wove it.&rdquo;
+        We believe a saree should hold the story of the hands that made it, not just the price tag on the label.
       </motion.blockquote>
       <motion.p
         {...fadeIn(0.2)}
         className="mt-6 text-sm font-medium tracking-wide text-muted-foreground"
       >
-        Why we started Rucira, and why we sell direct from the loom.
+        Why we work directly with artisan families and keep every step honest.
       </motion.p>
     </section>
   );

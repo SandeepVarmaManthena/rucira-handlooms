@@ -31,8 +31,8 @@ export function ProductSlideshow({
   };
 
   return (
-    <div>
-      <div className="group relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-muted">
+    <div className="mx-auto w-full max-w-[620px]">
+      <div className="group relative aspect-[4/5.4] w-full overflow-hidden rounded-[1.4rem] bg-muted shadow-[0_18px_36px_rgba(0,0,0,0.08)] sm:aspect-[4/4.8]">
         <button
           type="button"
           aria-label="Zoom image"
@@ -96,15 +96,17 @@ export function ProductSlideshow({
       </div>
 
       {images.length > 1 && (
-        <div className="mt-3 grid grid-cols-5 gap-2 sm:grid-cols-6">
+        <div className="mt-2 grid grid-cols-5 gap-1.25 sm:grid-cols-5">
           {images.map((src, i) => (
             <button
               key={i}
               type="button"
               aria-label={`View image ${i + 1}`}
               onClick={() => setActive(i)}
-              className={`aspect-square overflow-hidden rounded-lg border transition-colors ${
-                i === active ? "border-primary" : "border-border hover:border-primary/50"
+              className={`aspect-[4/5] overflow-hidden rounded-xl border transition-all duration-200 ${
+                i === active
+                  ? "border-primary ring-2 ring-primary/20 shadow-sm"
+                  : "border-border hover:border-primary/40 hover:shadow-sm"
               }`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}

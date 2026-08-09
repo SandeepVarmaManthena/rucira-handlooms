@@ -20,7 +20,17 @@ export function ProductCard({
   className?: string;
 }) {
   const addItem = useCartStore((s) => s.addItem);
-  const images = product.images ?? [];
+  const fallbackImages = [
+    "/images/saree/Kanjivaram-Silk.png",
+    "/images/saree/Banarasi-Silk.jpg",
+    "/images/saree/Jamdani-Weaves.png",
+    "/images/saree/Paithani.jpg",
+    "/images/saree/Mangalagiri-Cotton.jpg",
+    "/images/saree/Chettinad-Cotton.jpg",
+    "/images/saree/Kota-Doria.jpg",
+    "/images/saree/Wedding-Edit.jpg",
+  ];
+  const images = product.images && product.images.length > 0 ? product.images : fallbackImages;
   const [active, setActive] = React.useState(0);
   const [isHovering, setIsHovering] = React.useState(false);
 
@@ -37,7 +47,7 @@ export function ProductCard({
   return (
     <motion.div {...fadeUp(Math.min(index, 8) * 0.05, 16)} className={className}>
       <div
-        className="group relative aspect-[3/4] overflow-hidden rounded-2xl"
+        className="group relative aspect-[3/4.2] overflow-hidden rounded-2xl sm:aspect-[3/4]"
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => {
           setIsHovering(false);
@@ -47,7 +57,7 @@ export function ProductCard({
         <Link href={`/shop/${product.id}`} className="absolute inset-0 block">
           {coverImage ? (
             <AnimatePresence initial={false}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+              { }
               <motion.img
                 key={active}
                 src={coverImage}
@@ -112,19 +122,19 @@ export function ProductCard({
         </Button>
       </div>
 
-      <Link href={`/shop/${product.id}`} className="mt-3 block">
-        <h3 className="font-heading text-sm font-semibold sm:text-base">
+      <Link href={`/shop/${product.id}`} className="mt-2.5 block sm:mt-3">
+        <h3 className="font-heading text-[0.9rem] font-semibold leading-tight sm:text-base">
           {product.name}
         </h3>
-        <p className="mt-0.5 text-xs text-muted-foreground">
+        <p className="mt-1 text-[0.68rem] text-muted-foreground sm:text-xs">
           {product.weaver} · {product.region}
         </p>
-        <div className="mt-1.5 flex items-baseline gap-2">
+        <div className="mt-1.5 flex items-baseline gap-1.5 sm:gap-2">
           <span className="text-sm font-semibold sm:text-base">
             {formatINR(product.price)}
           </span>
           {product.originalPrice && (
-            <span className="text-xs text-muted-foreground line-through">
+            <span className="text-[0.7rem] text-muted-foreground line-through sm:text-xs">
               {formatINR(product.originalPrice)}
             </span>
           )}

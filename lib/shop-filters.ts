@@ -8,6 +8,7 @@ import type {
 
 export type PriceRangeValue =
   | "all"
+  | "custom"
   | "under-5000"
   | "5000-10000"
   | "10000-20000"
@@ -75,8 +76,15 @@ export const SORT_OPTIONS: { value: SortValue; label: string }[] = [
   { value: "price-desc", label: "Price: High to Low" },
 ];
 
-export function matchesPriceRange(price: number, range: PriceRangeValue) {
+export function matchesPriceRange(
+  price: number,
+  range: PriceRangeValue,
+  minPrice = 0,
+  maxPrice = 30000,
+) {
   switch (range) {
+    case "custom":
+      return price >= minPrice && price <= maxPrice;
     case "under-5000":
       return price < 5000;
     case "5000-10000":
@@ -108,6 +116,8 @@ export function filterAndSortProducts(
     colors,
     patterns,
     priceRange,
+    priceMin = 0,
+    priceMax = 30000,
     sort,
   }: {
     categories: ProductCategory[];
@@ -115,6 +125,8 @@ export function filterAndSortProducts(
     colors: ProductColor[];
     patterns: ProductPattern[];
     priceRange: PriceRangeValue;
+    priceMin?: number;
+    priceMax?: number;
     sort: SortValue;
   },
 ) {
@@ -132,7 +144,7 @@ export function filterAndSortProducts(
       matchesFabric &&
       matchesColor &&
       matchesPattern &&
-      matchesPriceRange(product.price, priceRange)
+      matchesPriceRange(product.price, priceRange, priceMin, priceMax)
     );
   });
 

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef } from "react";
 import { motion, useScroll } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -20,7 +21,7 @@ export function ProcessTimeline() {
           THE PROCESS
         </p>
         <h2 className="mt-2 text-balance font-heading text-2xl font-semibold sm:text-3xl">
-          Thirteen days, six hands, one saree
+          From yarn to drape.
         </h2>
       </div>
 
@@ -70,7 +71,7 @@ function TimelineStep({ step, index }: { step: JourneyStep; index: number }) {
         )}
       >
         <span className="text-xs font-semibold tracking-[0.2em] text-primary">
-          {step.step} &middot; {step.duration}
+          {step.step} • {step.duration}
         </span>
         <h3 className="mt-1.5 font-heading text-xl font-semibold sm:text-2xl">
           {step.title}
@@ -86,16 +87,20 @@ function TimelineStep({ step, index }: { step: JourneyStep; index: number }) {
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
         className={cn(
-          "hidden aspect-video overflow-hidden rounded-2xl sm:block sm:self-center",
+          "hidden overflow-hidden rounded-2xl border border-border bg-card sm:block sm:self-center",
           isEven ? "sm:col-start-2 sm:row-start-1 sm:pl-12" : "sm:col-start-1 sm:row-start-1 sm:pr-12",
         )}
       >
-        <div
-          className={cn(
-            "size-full rounded-2xl bg-gradient-to-br opacity-90",
-            step.gradient,
-          )}
-        />
+        <div className="relative aspect-video overflow-hidden">
+          <Image
+            src={step.image}
+            alt={step.title}
+            fill
+            sizes="(max-width: 640px) 0px, 30vw"
+            className="object-cover"
+          />
+          <div className={cn("absolute inset-0 bg-gradient-to-br opacity-80", step.gradient)} />
+        </div>
       </motion.div>
     </div>
   );
