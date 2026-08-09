@@ -14,8 +14,10 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ImageLightbox } from "@/components/image-lightbox";
+import { cn } from "@/lib/utils";
 
 const MAX_GARMENT_PHOTOS = 3;
+const MAX_PRODUCT_PHOTOS = 8;
 
 const POSE_ORDER = ["front", "side", "back"] as const;
 type PoseKey = (typeof POSE_ORDER)[number];
@@ -44,10 +46,14 @@ export function ImageUpload({
 }) {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [lightboxIndex, setLightboxIndex] = React.useState<number | null>(null);
+  const [isDragging, setIsDragging] = React.useState(false);
+  const room = MAX_PRODUCT_PHOTOS - images.length;
 
   const handleFiles = async (files: FileList | null) => {
-    if (!files || files.length === 0) return;
-    const dataUrls = await Promise.all(Array.from(files).map(fileToDataUrl));
+    if (!files || files.length === 0 || room <= 0) return;
+    const dataUrls = await Promise.all(
+      Array.from(files).slice(0, room).map(fileToDataUrl),
+    );
     onChange([...images, ...dataUrls]);
   };
 
@@ -57,8 +63,28 @@ export function ImageUpload({
 
   return (
     <div>
-      <p className="text-sm font-medium">Product images</p>
-      <div className="mt-2 grid grid-cols-3 gap-2.5">
+      <div className="flex items-baseline justify-between">
+        <p className="text-sm font-medium">Product images</p>
+        <span className="text-xs text-muted-foreground">
+          {images.length} / {MAX_PRODUCT_PHOTOS}
+        </span>
+      </div>
+      <div
+        onDragOver={(e) => {
+          e.preventDefault();
+          if (room > 0) setIsDragging(true);
+        }}
+        onDragLeave={() => setIsDragging(false)}
+        onDrop={(e) => {
+          e.preventDefault();
+          setIsDragging(false);
+          handleFiles(e.dataTransfer.files);
+        }}
+        className={cn(
+          "mt-2 grid grid-cols-3 gap-2.5 rounded-xl transition-colors",
+          isDragging && "outline-2 outline-dashed outline-primary outline-offset-4",
+        )}
+      >
         {images.map((src, i) => (
           <div
             key={i}
@@ -85,26 +111,40 @@ export function ImageUpload({
             >
               <X className="size-3.5" />
             </button>
+            {i === 0 && (
+              <span className="pointer-events-none absolute bottom-1 left-1 rounded-full bg-black/60 px-1.5 py-0.5 text-[0.6rem] font-medium text-white">
+                Cover
+              </span>
+            )}
           </div>
         ))}
 
-        {/* <button
-          type="button"
-          onClick={() => inputRef.current?.click()}
-          className="flex aspect-square flex-col items-center justify-center gap-1.5 rounded-lg border border-dashed border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary"
-        >
-          <Upload className="size-5" />
-          <span className="text-[0.7rem] font-medium">Upload</span>
-        </button> */}
+        {room > 0 && (
+          <button
+            type="button"
+            onClick={() => inputRef.current?.click()}
+            className="flex aspect-square flex-col items-center justify-center gap-1.5 rounded-lg border border-dashed border-border bg-secondary/20 text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+          >
+            <Upload className="size-5" />
+            <span className="text-[0.7rem] font-medium">Upload</span>
+          </button>
+        )}
         <input
           ref={inputRef}
           type="file"
           accept="image/*"
           multiple
           className="hidden"
-          onChange={(e) => handleFiles(e.target.files)}
+          onChange={(e) => {
+            handleFiles(e.target.files);
+            e.target.value = "";
+          }}
         />
       </div>
+      <p className="mt-2 text-xs text-muted-foreground">
+        The first photo is used as the storefront cover. Drag to reorder isn&rsquo;t
+        supported yet — remove and re-add to change the order.
+      </p>
 
       <ImageLightbox
         images={images}
@@ -135,6 +175,7 @@ export function AIGarmentGenerator({
   const [results, setResults] = React.useState<Partial<Record<PoseKey, string>>>({});
   const [poseErrors, setPoseErrors] = React.useState<Partial<Record<PoseKey, string>>>({});
   const [lightboxIndex, setLightboxIndex] = React.useState<number | null>(null);
+  const [isDraggingGarment, setIsDraggingGarment] = React.useState(false);
 
   const resultPoses = POSE_ORDER.filter((pose) => results[pose]);
   const resultImages = resultPoses.map((pose) => results[pose] as string);
@@ -192,24 +233,31 @@ export function AIGarmentGenerator({
 
   return (
     <div>
-      <div className="flex items-start gap-3">
-        <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-          <Sparkles className="size-5" />
-        </span>
-        <div>
-          <p className="text-base font-medium">Generate model-worn photos with AI</p>
-          <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-            Upload the garment flat-lay and FASHN AI will generate a model wearing it
-            in three poses — front, side, and back. 1 credit per image, 3 credits per
-            garment.
-          </p>
-        </div>
-      </div>
+      <p className="max-w-2xl text-sm text-muted-foreground">
+        Upload the garment flat-lay and FASHN AI will generate a model wearing it
+        in three poses — front, side, and back. 1 credit per image, 3 credits per
+        garment.
+      </p>
 
       <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-2">
         <div>
           <Label className="text-sm">Garment photos (1–3)</Label>
-          <div className="mt-2 grid grid-cols-3 gap-3">
+          <div
+            onDragOver={(e) => {
+              e.preventDefault();
+              if (garmentPhotos.length < MAX_GARMENT_PHOTOS) setIsDraggingGarment(true);
+            }}
+            onDragLeave={() => setIsDraggingGarment(false)}
+            onDrop={(e) => {
+              e.preventDefault();
+              setIsDraggingGarment(false);
+              handleGarmentFiles(e.dataTransfer.files);
+            }}
+            className={cn(
+              "mt-2 grid grid-cols-3 gap-3 rounded-xl transition-colors",
+              isDraggingGarment && "outline-2 outline-dashed outline-primary outline-offset-4",
+            )}
+          >
             {garmentPhotos.map((src, i) => (
               <div
                 key={i}
@@ -248,7 +296,10 @@ export function AIGarmentGenerator({
             accept="image/*"
             multiple
             className="hidden"
-            onChange={(e) => handleGarmentFiles(e.target.files)}
+            onChange={(e) => {
+              handleGarmentFiles(e.target.files);
+              e.target.value = "";
+            }}
           />
 
           <div className="mt-4 rounded-xl border border-border bg-secondary/30 p-4 text-xs text-muted-foreground">

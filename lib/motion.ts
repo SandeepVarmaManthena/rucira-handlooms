@@ -27,3 +27,16 @@ export function scaleIn(delay = 0) {
     transition: { duration: 0.7, ease: EASE, delay },
   };
 }
+
+/**
+ * Like fadeUp, but animates on mount instead of on scroll-into-view.
+ * Use for form/dashboard content that must be visible immediately —
+ * fadeUp's whileInView never fires for content that starts below the fold.
+ */
+export function mountFadeUp(delay = 0, distance = 16) {
+  return {
+    initial: { opacity: 0, y: distance },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5, ease: EASE, delay },
+  };
+}

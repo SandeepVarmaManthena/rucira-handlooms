@@ -2,6 +2,8 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 import { Menu, Search, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,9 +22,14 @@ import { mainNav } from "@/lib/site-config";
 import { useCartStore } from "@/store/cart-store";
 import { cn } from "@/lib/utils";
 
+function isNavActive(pathname: string, href: string) {
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export function Header() {
   const itemCount = useCartStore((s) => s.itemCount());
   const openCart = useCartStore((s) => s.openCart);
+  const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
 
@@ -64,20 +71,35 @@ export function Header() {
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col gap-1 p-3">
-                  {mainNav.map((item) => (
-                    <SheetClose
-                      key={item.href}
-                      nativeButton={false}
-                      render={
-                        <Link
-                          href={item.href}
-                          className="rounded-2xl px-3 py-3 text-base font-medium text-foreground/90 transition-colors hover:bg-secondary hover:text-foreground"
+                  {mainNav.map((item) => {
+                    const active = isNavActive(pathname, item.href);
+                    return (
+                      <SheetClose
+                        key={item.href}
+                        nativeButton={false}
+                        render={
+                          <Link
+                            href={item.href}
+                            aria-current={active ? "page" : undefined}
+                            className={cn(
+                              "flex items-center gap-2.5 rounded-2xl px-3 py-3 text-base font-medium transition-colors",
+                              active
+                                ? "bg-primary/10 text-primary"
+                                : "text-foreground/90 hover:bg-secondary hover:text-foreground",
+                            )}
+                          />
+                        }
+                      >
+                        <span
+                          className={cn(
+                            "size-1.5 shrink-0 rounded-full bg-primary transition-opacity",
+                            active ? "opacity-100" : "opacity-0",
+                          )}
                         />
-                      }
-                    >
-                      {item.title}
-                    </SheetClose>
-                  ))}
+                        {item.title}
+                      </SheetClose>
+                    );
+                  })}
                 </nav>
                 <div className="mt-auto border-t border-border px-5 py-5 text-sm text-muted-foreground">
                   Direct from the weaver&rsquo;s loom to your doorstep.
@@ -91,15 +113,31 @@ export function Header() {
           </Link>
 
           <nav className="hidden flex-1 items-center justify-center gap-1 lg:flex">
-            {mainNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="rounded-full px-4 py-2 text-sm font-medium text-foreground/80 transition-all hover:bg-secondary hover:text-foreground"
-              >
-                {item.title}
-              </Link>
-            ))}
+            {mainNav.map((item) => {
+              const active = isNavActive(pathname, item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "relative rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                    active
+                      ? "text-primary"
+                      : "text-foreground/80 hover:bg-secondary hover:text-foreground",
+                  )}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="header-active-pill"
+                      className="absolute inset-0 -z-10 rounded-full bg-primary/10"
+                      transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                    />
+                  )}
+                  {item.title}
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="flex items-center gap-0.5 sm:gap-1">

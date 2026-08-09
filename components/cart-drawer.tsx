@@ -15,10 +15,15 @@ export function CartDrawer() {
   const updateQuantity = useCartStore((s) => s.updateQuantity);
   const removeItem = useCartStore((s) => s.removeItem);
   const subtotal = useCartStore((s) => s.subtotal());
+  const savings = useCartStore((s) => s.savings());
 
   return (
     <Sheet open={isOpen} onOpenChange={(next) => (next ? undefined : closeCart())}>
-      <SheetContent side="right" className="flex w-full max-w-md flex-col border-l border-border bg-background p-0">
+      <SheetContent
+        side="right"
+        showCloseButton={false}
+        className="flex w-full max-w-md flex-col border-l border-border bg-background p-0"
+      >
         <SheetHeader className="border-b border-border px-5 py-4">
           <div className="flex items-center justify-between gap-3">
             <SheetTitle className="flex items-center gap-2 font-heading text-lg font-semibold">
@@ -52,8 +57,14 @@ export function CartDrawer() {
                   Add a saree you love and we will keep it ready for checkout.
                 </p>
               </div>
-              <Button variant="secondary" className="rounded-full" onClick={closeCart} asChild>
-                <Link href="/shop">Continue shopping</Link>
+              <Button
+                variant="secondary"
+                className="rounded-full"
+                onClick={closeCart}
+                render={<Link href="/shop" />}
+                nativeButton={false}
+              >
+                Continue shopping
               </Button>
             </div>
           ) : (
@@ -136,15 +147,27 @@ export function CartDrawer() {
             </div>
             <div className="mt-2 flex items-center justify-between text-sm text-muted-foreground">
               <span>Shipping</span>
-              <span className="font-medium text-foreground">Free</span>
+              <span className="font-medium text-primary">Free</span>
             </div>
+            {savings > 0 && (
+              <div className="mt-2 flex items-center justify-between text-sm text-primary">
+                <span>You&rsquo;re saving</span>
+                <span className="font-medium">{formatINR(savings)}</span>
+              </div>
+            )}
             <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
               <span className="text-base font-semibold">Total</span>
               <span className="text-lg font-semibold">{formatINR(subtotal)}</span>
             </div>
 
-            <Button className="mt-5 w-full rounded-full" size="lg" onClick={closeCart} asChild>
-              <Link href="/shop">Proceed to checkout</Link>
+            <Button
+              className="mt-5 w-full rounded-full"
+              size="lg"
+              onClick={closeCart}
+              render={<Link href="/checkout" />}
+              nativeButton={false}
+            >
+              Proceed to checkout
             </Button>
           </div>
         )}

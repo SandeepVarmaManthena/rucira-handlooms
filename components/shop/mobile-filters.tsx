@@ -30,6 +30,8 @@ export function MobileFilters({
   selectedPatterns,
   onTogglePattern,
   priceRange,
+  priceMin,
+  priceMax,
   onPriceRangeChange,
   activeCount,
   onClear,
@@ -44,7 +46,13 @@ export function MobileFilters({
   selectedPatterns: ProductPattern[];
   onTogglePattern: (pattern: ProductPattern) => void;
   priceRange: PriceRangeValue;
-  onPriceRangeChange: (value: PriceRangeValue) => void;
+  priceMin: number;
+  priceMax: number;
+  onPriceRangeChange: (
+    value: PriceRangeValue,
+    minValue?: number,
+    maxValue?: number,
+  ) => void;
   activeCount: number;
   onClear: () => void;
   resultCount: number;
@@ -86,6 +94,8 @@ export function MobileFilters({
             selectedPatterns={selectedPatterns}
             onTogglePattern={onTogglePattern}
             priceRange={priceRange}
+            priceMin={priceMin}
+            priceMax={priceMax}
             onPriceRangeChange={onPriceRangeChange}
             activeCount={activeCount}
             onClear={onClear}

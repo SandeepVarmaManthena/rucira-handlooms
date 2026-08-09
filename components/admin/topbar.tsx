@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Store } from "lucide-react";
+import { ChevronLeft, Menu, Store } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -28,6 +28,7 @@ function deriveTitle(pathname: string) {
 export function AdminTopbar() {
   const pathname = usePathname();
   const title = deriveTitle(pathname);
+  const isNestedProductPage = pathname !== "/admin/products" && pathname.startsWith("/admin/products/");
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -49,15 +50,13 @@ export function AdminTopbar() {
             </SheetHeader>
             <nav className="flex flex-col gap-1 px-3 py-4">
               {ADMIN_NAV_ITEMS.map((item) => {
-                const active =
-                  item.href === "/admin"
-                    ? pathname === "/admin"
-                    : pathname.startsWith(item.href);
+                const active = item.isActive(pathname);
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
                     onClick={() => setOpen(false)}
+                    aria-current={active ? "page" : undefined}
                     className={cn(
                       "flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                       active
@@ -80,6 +79,16 @@ export function AdminTopbar() {
             </nav>
           </SheetContent>
         </Sheet>
+
+        {isNestedProductPage && (
+          <Link
+            href="/admin/products"
+            aria-label="Back to Products"
+            className="-ml-1 hidden size-8 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground sm:flex"
+          >
+            <ChevronLeft className="size-4" />
+          </Link>
+        )}
         <h1 className="font-heading text-lg font-semibold">{title}</h1>
       </div>
 

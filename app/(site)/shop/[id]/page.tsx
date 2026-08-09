@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import {
   BadgeCheck,
   ChevronRight,
@@ -21,7 +21,7 @@ import { ProductSlideshow } from "@/components/shop/product-slideshow";
 import { useAdminProductsStore } from "@/store/admin-products-store";
 import { useCartStore } from "@/store/cart-store";
 import { formatINR } from "@/lib/utils";
-import { catalogProducts, testimonials } from "@/lib/mock-data";
+import { testimonials } from "@/lib/mock-data";
 import {
   CATEGORY_FILTERS,
   COLOR_FILTERS,
@@ -42,9 +42,11 @@ const fallbackImages = [
 
 export default function ProductDetailPage() {
   const params = useParams<{ id: string }>();
+  const router = useRouter();
   const product = useAdminProductsStore((s) =>
     s.products.find((p) => p.id === params.id),
   );
+  const allProducts = useAdminProductsStore((s) => s.products);
   const addItem = useCartStore((s) => s.addItem);
   const openCart = useCartStore((s) => s.openCart);
   const [quantity, setQuantity] = useState(1);
@@ -72,16 +74,14 @@ export default function ProductDetailPage() {
   const colorLabel = COLOR_FILTERS.find((c) => c.value === product.color)?.label;
   const patternLabel = PATTERN_FILTERS.find((p) => p.value === product.pattern)?.label;
 
-  const relatedProducts =
-    catalogProducts.filter(
-      (item) => item.id !== product.id && item.category === product.category,
-    ).slice(0, 4).length > 0
-      ? catalogProducts
-          .filter(
-            (item) => item.id !== product.id && item.category === product.category,
-          )
-          .slice(0, 4)
-      : catalogProducts.filter((item) => item.id !== product.id).slice(0, 4);
+  const sameCategory = allProducts.filter(
+    (item) => item.id !== product.id && item.category === product.category,
+  );
+  const relatedProducts = (
+    sameCategory.length > 0
+      ? sameCategory
+      : allProducts.filter((item) => item.id !== product.id)
+  ).slice(0, 4);
 
   const handleAddToBag = (goToCheckout = false) => {
     if (product.stock === 0) return;
@@ -90,13 +90,15 @@ export default function ProductDetailPage() {
         id: product.id,
         name: product.name,
         price: product.price,
+        originalPrice: product.originalPrice,
         image: product.images[0] ?? product.gradient,
       },
       quantity,
     );
-    openCart();
     if (goToCheckout) {
-      // Keep the customer in the premium cart flow without forcing a page change.
+      router.push("/checkout");
+    } else {
+      openCart();
     }
   };
 
@@ -171,7 +173,9 @@ export default function ProductDetailPage() {
             {product.stock === 0 ? (
               <span className="text-destructive">Out of stock</span>
             ) : product.stock <= 5 ? (
-              <span className="text-amber-600">Only {product.stock} left in stock</span>
+              <span className="font-medium text-accent-foreground">
+                Only {product.stock} left in stock
+              </span>
             ) : (
               <span className="text-primary">In stock</span>
             )}

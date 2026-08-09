@@ -71,9 +71,10 @@ export function FilterPanel({
       maximumFractionDigits: 0,
     }).format(amount);
 
-  const handlePriceSlider = (value: number[]) => {
-    const nextMin = Math.min(value[0] ?? 0, value[1] ?? 30000);
-    const nextMax = Math.max(value[0] ?? 0, value[1] ?? 30000);
+  const handlePriceSlider = (value: number | readonly number[]) => {
+    const values = Array.isArray(value) ? value : [value as number, value as number];
+    const nextMin = Math.min(values[0] ?? 0, values[1] ?? 30000);
+    const nextMax = Math.max(values[0] ?? 0, values[1] ?? 30000);
 
     onPriceRangeChange("custom", nextMin, nextMax);
   };
@@ -263,9 +264,8 @@ export function FilterPanel({
                         key={range.value}
                         type="button"
                         onClick={() => {
-                          const presetMap: Record<
-                            Exclude<PriceRangeValue, "all" | "custom">,
-                            { min: number; max: number }
+                          const presetMap: Partial<
+                            Record<PriceRangeValue, { min: number; max: number }>
                           > = {
                             "under-5000": { min: 0, max: 4999 },
                             "5000-10000": { min: 5000, max: 9999 },
@@ -273,6 +273,7 @@ export function FilterPanel({
                             "above-20000": { min: 20000, max: 30000 },
                           };
                           const preset = presetMap[range.value];
+                          if (!preset) return;
                           onPriceRangeChange(range.value, preset.min, preset.max);
                         }}
                         className={cn(

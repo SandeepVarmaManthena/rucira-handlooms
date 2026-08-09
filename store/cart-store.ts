@@ -1,9 +1,10 @@
 import { create } from "zustand";
 
-type CartItem = {
+export type CartItem = {
   id: string;
   name: string;
   price: number;
+  originalPrice?: number;
   image: string;
   quantity: number;
 };
@@ -16,8 +17,10 @@ type CartState = {
   addItem: (item: Omit<CartItem, "quantity">, quantity?: number) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
+  clearCart: () => void;
   itemCount: () => number;
   subtotal: () => number;
+  savings: () => number;
 };
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -48,6 +51,13 @@ export const useCartStore = create<CartState>((set, get) => ({
               i.id === id ? { ...i, quantity } : i,
             ),
     })),
+  clearCart: () => set({ items: [] }),
   itemCount: () => get().items.reduce((sum, i) => sum + i.quantity, 0),
   subtotal: () => get().items.reduce((sum, i) => sum + i.price * i.quantity, 0),
+  savings: () =>
+    get().items.reduce(
+      (sum, i) =>
+        sum + (i.originalPrice ? (i.originalPrice - i.price) * i.quantity : 0),
+      0,
+    ),
 }));
