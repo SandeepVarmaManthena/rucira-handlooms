@@ -1,5 +1,6 @@
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { SectionScope } from "@/components/layout/section-scope";
 import { ChatWidget } from "@/components/chat-widget";
 
 export default function SiteLayout({
@@ -8,11 +9,11 @@ export default function SiteLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex min-h-full flex-1 flex-col">
+    <SectionScope>
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
       <ChatWidget />
-    </div>
+    </SectionScope>
   );
 }

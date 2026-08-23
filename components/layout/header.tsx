@@ -45,7 +45,7 @@ export function Header() {
       <AnnouncementBar />
       <div
         className={cn(
-          "w-full border-b border-border/80 bg-background/80 backdrop-blur-xl transition-all duration-200",
+          "section-chrome-transition w-full border-b border-border/80 bg-background/80 backdrop-blur-xl transition-all duration-200",
           scrolled && "shadow-[0_10px_30px_rgba(17,17,17,0.05)]",
         )}
       >

@@ -6,11 +6,10 @@ export const siteConfig = {
 };
 
 export const mainNav = [
-  { title: "Shop", href: "/shop" },
-  { title: "Our Journey", href: "/journey" },
+  { title: "Handlooms", href: "/handlooms" },
+  { title: "Officewear", href: "/officewear" },
   { title: "The Weavers", href: "/weavers" },
   { title: "About", href: "/about" },
-  { title: "Contact", href: "/contact" },
 ];
 
 export const footerNav = {

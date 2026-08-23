@@ -17,7 +17,7 @@ export function AnnouncementBar() {
   const loop = [...MESSAGES, ...MESSAGES];
 
   return (
-    <div className="relative flex h-9 items-center overflow-hidden bg-primary text-primary-foreground">
+    <div className="section-chrome-transition relative flex h-9 items-center overflow-hidden bg-primary text-primary-foreground">
       <div className="flex shrink-0 animate-marquee items-center gap-12 whitespace-nowrap text-xs font-medium tracking-wide">
         {loop.map((msg, i) => (
           <span key={i} className="flex items-center gap-12">
