@@ -520,6 +520,33 @@ export const weaverProfiles: WeaverProfile[] = [
       "I used to sell to a middleman for half of what I'm worth. Now my name is stitched into the label of every saree.",
     gradient: "from-[oklch(0.55_0.1_75)] to-[oklch(0.78_0.14_85)]",
   },
+  {
+    name: "Irfan Ansari",
+    village: "Varanasi, Uttar Pradesh",
+    craft: "Banarasi Silk",
+    experience: "21 years of weaving",
+    quote:
+      "A Banarasi brocade can take three weeks on the jacquard loom. Every zari thread has to be placed by hand — there's no shortcut worth taking.",
+    gradient: "from-[oklch(0.4_0.12_25)] to-[oklch(0.58_0.14_35)]",
+  },
+  {
+    name: "Venkata Rao",
+    village: "Guntur, Andhra Pradesh",
+    craft: "Mangalagiri Cotton",
+    experience: "15 years of weaving",
+    quote:
+      "Mangalagiri cotton is woven without a single power tool, borders and all. People notice the difference the first time they wear it.",
+    gradient: "from-[oklch(0.65_0.07_50)] to-[oklch(0.82_0.08_75)]",
+  },
+  {
+    name: "Meena Karthik",
+    village: "Karaikudi, Tamil Nadu",
+    craft: "Chettinad Cotton",
+    experience: "19 years of weaving",
+    quote:
+      "Our checks and stripes look simple, but getting the count exact by hand takes years to learn. I'm teaching my daughter now.",
+    gradient: "from-[oklch(0.5_0.1_25)] to-[oklch(0.7_0.11_45)]",
+  },
 ];
 
 export type WeavingRegion = {

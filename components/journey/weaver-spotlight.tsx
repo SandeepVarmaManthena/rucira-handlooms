@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 import { featuredWeaver, weaverProfiles } from "@/lib/mock-data";
-import { EASE, fadeUp } from "@/lib/motion";
+import { fadeUp, imageRevealMask, staggerContainer, staggerItem } from "@/lib/motion";
 
 export function WeaverSpotlight() {
   return (
@@ -21,10 +21,7 @@ export function WeaverSpotlight() {
 
         <div className="mt-12 grid grid-cols-1 items-center gap-8 rounded-3xl border border-border bg-card p-6 sm:mt-16 sm:p-8 lg:grid-cols-2 lg:gap-12 lg:p-10">
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7, ease: EASE }}
+            {...imageRevealMask()}
             className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border bg-card"
           >
             <Image
@@ -63,21 +60,26 @@ export function WeaverSpotlight() {
           </motion.div>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
-          {weaverProfiles.map((weaver, i) => (
+        <motion.div
+          {...staggerContainer(0.1)}
+          className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3"
+        >
+          {weaverProfiles.map((weaver) => (
             <motion.div
               key={weaver.name}
-              {...fadeUp(i * 0.1, 18)}
-              className="flex flex-col rounded-2xl border border-border bg-card p-6"
+              variants={staggerItem(18)}
+              className="flex flex-col rounded-2xl border border-border bg-card p-6 transition-colors duration-300 hover:border-primary/40"
             >
-              <div
+              <motion.div
+                whileHover={{ scale: 1.08, rotate: -3 }}
+                transition={{ type: "spring", stiffness: 320, damping: 14 }}
                 className={`flex size-14 items-center justify-center rounded-full bg-gradient-to-br font-heading text-lg font-semibold text-white ${weaver.gradient}`}
               >
                 {weaver.name
                   .split(" ")
                   .map((w) => w[0])
                   .join("")}
-              </div>
+              </motion.div>
 
               <Quote className="mt-5 size-5 text-accent" />
               <p className="mt-2 flex-1 text-sm leading-relaxed text-foreground/90">
@@ -102,7 +104,7 @@ export function WeaverSpotlight() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

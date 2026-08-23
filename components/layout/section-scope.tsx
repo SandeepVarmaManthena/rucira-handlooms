@@ -7,6 +7,10 @@ export type Section = "handlooms" | "officewear";
 function sectionFor(pathname: string): Section | undefined {
   if (pathname === "/handlooms" || pathname.startsWith("/handlooms/")) return "handlooms";
   if (pathname === "/officewear" || pathname.startsWith("/officewear/")) return "officewear";
+  // Journey/story and weaver-story content is Handlooms-owned in the brand's
+  // own architecture, not a neutral cross-section page like cart/checkout.
+  if (pathname === "/journey" || pathname.startsWith("/journey/")) return "handlooms";
+  if (pathname === "/weavers" || pathname.startsWith("/weavers/")) return "handlooms";
   return undefined;
 }
 

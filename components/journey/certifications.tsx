@@ -1,9 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BadgeCheck } from "lucide-react";
+import { BadgeCheck, Hand, Scale, ShieldCheck, type LucideIcon } from "lucide-react";
 import { certifications } from "@/lib/mock-data";
-import { fadeUp } from "@/lib/motion";
+import { staggerContainer, staggerItem } from "@/lib/motion";
+
+const ICONS: Record<string, LucideIcon> = {
+  "GI-Tagged Weaves": BadgeCheck,
+  "Silk Mark Yarn": ShieldCheck,
+  "Handloom, Not Power Loom": Hand,
+  "Fair-Trade Pricing": Scale,
+};
 
 export function Certifications() {
   return (
@@ -20,23 +27,29 @@ export function Certifications() {
         </p>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 lg:grid-cols-4">
-        {certifications.map((cert, i) => (
-          <motion.div
-            key={cert.title}
-            {...fadeUp(i * 0.06, 14)}
-            className="rounded-2xl border border-border bg-card p-5"
-          >
-            <BadgeCheck className="size-5 text-primary" />
-            <p className="mt-3 font-heading text-sm font-semibold">
-              {cert.title}
-            </p>
-            <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
-              {cert.description}
-            </p>
-          </motion.div>
-        ))}
-      </div>
+      <motion.div
+        {...staggerContainer(0.08)}
+        className="mt-10 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 lg:grid-cols-4"
+      >
+        {certifications.map((cert) => {
+          const Icon = ICONS[cert.title] ?? BadgeCheck;
+          return (
+            <motion.div
+              key={cert.title}
+              variants={staggerItem(14)}
+              className="group rounded-2xl border border-border bg-card p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_16px_32px_-16px_rgba(0,0,0,0.18)]"
+            >
+              <Icon className="size-5 text-primary transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110" />
+              <p className="mt-3 font-heading text-sm font-semibold">
+                {cert.title}
+              </p>
+              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
+                {cert.description}
+              </p>
+            </motion.div>
+          );
+        })}
+      </motion.div>
     </section>
   );
 }

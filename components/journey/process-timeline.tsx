@@ -1,18 +1,26 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
-import { motion, useScroll } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { journeySteps, type JourneyStep } from "@/lib/mock-data";
-import { EASE } from "@/lib/motion";
+import { EASE, imageRevealMask, useParallax, useScrollProgressLine } from "@/lib/motion";
 
 export function ProcessTimeline() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 0.75", "end 0.4"],
-  });
+  const { scrollYProgress } = useScrollProgressLine(containerRef);
+  const [activeStep, setActiveStep] = useState(1);
+
+  useEffect(() => {
+    return scrollYProgress.on("change", (v) => {
+      const step = Math.min(
+        journeySteps.length,
+        Math.max(1, Math.ceil(v * journeySteps.length)),
+      );
+      setActiveStep(step);
+    });
+  }, [scrollYProgress]);
 
   return (
     <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-24">
@@ -32,6 +40,12 @@ export function ProcessTimeline() {
           className="absolute left-5 top-0 h-full w-px origin-top bg-primary sm:left-1/2 sm:-translate-x-1/2"
         />
 
+        <div className="sticky top-24 z-10 mb-6 flex justify-center sm:hidden">
+          <span className="rounded-full border border-border bg-card px-3 py-1 text-[0.68rem] font-semibold tabular-nums text-muted-foreground shadow-sm">
+            0{activeStep} / 0{journeySteps.length}
+          </span>
+        </div>
+
         <div>
           {journeySteps.map((step, i) => (
             <TimelineStep key={step.step} step={step} index={i} />
@@ -44,6 +58,8 @@ export function ProcessTimeline() {
 
 function TimelineStep({ step, index }: { step: JourneyStep; index: number }) {
   const isEven = index % 2 === 0;
+  const imageRef = useRef<HTMLDivElement>(null);
+  const y = useParallax(imageRef, 16);
 
   return (
     <div className="relative pb-12 pl-14 last:pb-0 sm:grid sm:grid-cols-2 sm:gap-10 sm:pb-20 sm:pl-0 sm:last:pb-0">
@@ -82,23 +98,23 @@ function TimelineStep({ step, index }: { step: JourneyStep; index: number }) {
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, scale: 0.94 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
+        ref={imageRef}
+        {...imageRevealMask(0.1)}
         className={cn(
           "hidden overflow-hidden rounded-2xl border border-border bg-card sm:block sm:self-center",
           isEven ? "sm:col-start-2 sm:row-start-1 sm:pl-12" : "sm:col-start-1 sm:row-start-1 sm:pr-12",
         )}
       >
         <div className="relative aspect-video overflow-hidden">
-          <Image
-            src={step.image}
-            alt={step.title}
-            fill
-            sizes="(max-width: 640px) 0px, 30vw"
-            className="object-cover"
-          />
+          <motion.div style={{ y }} className="absolute -inset-y-4 inset-x-0">
+            <Image
+              src={step.image}
+              alt={step.title}
+              fill
+              sizes="(max-width: 640px) 0px, 30vw"
+              className="object-cover"
+            />
+          </motion.div>
           <div className={cn("absolute inset-0 bg-gradient-to-br opacity-80", step.gradient)} />
         </div>
       </motion.div>
